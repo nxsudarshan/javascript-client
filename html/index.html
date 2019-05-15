@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Frontend Task 1</title>
+  <link rel="stylesheet" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script>
+    $(document).ready(function () {
+      $("#closeCart").click(function () {
+        if (window.confirm("Do you want to close it?") == true) {
+          $("#cart").hide(1000);
+        }
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div class="container" id="cart">
+    <div class="co">
+      <div class="co__header">
+        <div class="co__header--text">
+          Checkout
+        </div>
+      </div>
+      <div class="co__header--body">
+        <ul class="breadcrumb">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#checkout" class="active">Payment Method</a></li>
+          <li><a href="#confirmation">Confirmation</a></li>
+        </ul>
+      </div>
+      <div class="co__header--close">
+        <i class="fa fa-window-close" id="closeCart" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="co__body">
+      <div class="co__body--left">
+        Payment Block
+      </div>
+      <div class="co__body--right">
+        Cart Block
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

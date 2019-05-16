@@ -3,9 +3,7 @@ html {
   background-image: url("../images/background.jpg");
   background-repeat: no-repeat;
 }
-body {
-  height: 0%;
-}
+
 .container {
   background-color: white;
   display: flex;
@@ -221,7 +219,7 @@ i {
   font-size: 12px;
 }
 .co__body--gross {
-  margin-top: 40px;
+  margin-top: 90px;
   color:#859096;
 }
 .co__body--gross-content {

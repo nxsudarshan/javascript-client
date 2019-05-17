@@ -1,0 +1,235 @@
+html {
+  height: 100%;
+  background-image: url("../images/background.jpg");
+  background-repeat: no-repeat;
+}
+
+.container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  margin: 80px;
+  box-sizing: border-box;
+  border: 0.5px solid silver;
+  box-shadow: 3px 3px 5px silver;
+}
+.co {
+  display: flex;
+  box-sizing: border-box;
+  border-bottom: 0.5px solid #a9a9a9;
+  padding: 10px;
+  flex: 10;
+}
+.co__header {
+  font-weight: bold;
+  display: flex;
+  flex: 1;
+}
+.co__header--text {
+  display: flex;
+  flex: 1;
+}
+.co__header--body {
+  margin: -10px;
+  display: flex;
+  flex: 8;
+}
+.co__header--close {
+  justify-content: right;
+}
+.co__body {
+  display: flex;
+  flex-direction: row;
+}
+.co__body--wallet {
+  display: flex;
+  flex-direction: column;
+  flex: 6;
+}
+.co__body--wallet-header {
+  display: flex;
+  margin: 10px;
+  color: silver;
+  font-size: 12px;
+  padding: 0px 10px 0px 0px;
+  border-bottom: 0.5px solid silver;
+  flex: 1;
+}
+.co__body--wallet-content {
+  display: flex;
+  flex-direction: row;
+  flex: 9;
+}
+.co__body--newCard-header {
+  display: flex;
+  margin: 10px;
+  color: silver;
+  font-size: 12px;
+  padding: 0px 10px 0px 0px;
+  border-bottom: 0.5px solid silver;
+  flex: 1;
+}
+.co__body--content {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-content: center;
+}
+.co__body--newCard-content {
+  display: flex;
+  flex-direction: column;
+  flex: 9;
+  max-width: 350px;
+}
+.card:hover {
+  background-color: #f7f7f7;
+  border: 0.5px solid #a9a9a9;
+}
+.card {
+  margin: 10px;
+  padding: 15px;
+  flex: 1;
+}
+.card:after {
+  color: black;
+  font-size: 12px;
+  content: "Ending with 8899";
+}
+.co__body--cart-block {
+  padding: 10px;
+  background-color: #efeff0;
+  display: flex;
+  flex: 4;
+  flex-direction: column;
+}
+
+ul.breadcrumb {
+  padding: 10px;
+  list-style: none;
+}
+ul.breadcrumb li {
+  display: inline;
+  font-size: 16px;
+}
+ul.breadcrumb li + li:before {
+  padding: 10px;
+  content: "/";
+}
+ul.breadcrumb li a {
+  color: grey;
+  text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+  color: blue;
+  font-weight: bold;
+}
+ul.breadcrumb li .active {
+  color: black;
+  font-weight: bold;
+}
+i {
+  display: flex;
+  cursor: pointer;
+}
+.input-box {
+  display: flex;
+  flex: 1;
+  border: 0.5px solid silver;
+  border-radius: 4px;
+  height: 30px;
+  width: 93%;
+  font-size: 10px;
+  margin: 5px;
+  outline-color: silver;
+  padding-inline-start: 10px;
+}
+.input-half {
+  width: 43%;
+  display: inline-block;
+}
+.input-box:focus {
+  outline-color: #22c252;
+}
+.btn {
+  text-transform: uppercase;
+  font-family: "Times New Roman", Times, serif;
+  display: flex;
+  color: white;
+  background-color: #22c252;
+  font-size: 14px;
+  width: 97%;
+  justify-content: center;
+  margin: 20px 5px;
+  height: 50px;
+  border: none;
+}
+.co__body--cart {
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+}
+.co__body--cart-header {
+  flex: 6;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "Times New Roman", Times, serif;
+  text-transform: capitalize;
+}
+.co__body--cart-image {
+  flex: 1;
+}
+.co__body--cart-details {
+  padding: 2px;
+  font-size: 9px;
+  color: #b4aea2;
+  font-style: italic;
+}
+.co__body--cart-quantity {
+  padding: 0px;
+  font-size: 9px;
+  color: black;
+}
+.image-border {
+  border: 4px solid #cccccc;
+}
+.cart-price {
+  font-size: 9px;
+  font-weight: bold;
+  padding: 8px;
+  justify-items: right;
+  color:#859096;
+}
+.cart-price-total {
+  font-size: 9px;
+  font-weight: bold;
+  padding: 8px;
+  justify-items: right;
+}
+.cart-price:after {
+  content: "$10.00";
+}
+.border-top {
+  border-top: 1px solid silver;
+}
+.co__body--gross-total {
+  display: flex;
+  flex: 10;
+  flex-direction: row;
+  padding: 4px;
+  font-size: 12px;
+}
+.co__body--gross {
+  margin-top: 90px;
+  color:#859096;
+}
+.co__body--gross-content {
+  display: flex;
+  flex: 8;
+}
+.co__body--gross-price {
+  display: flex;
+  flex: 1;
+  font-weight: bold;
+  color:#859096;
+  flex-direction: row-reverse;
+}

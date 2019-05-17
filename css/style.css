@@ -1,0 +1,82 @@
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 80px;
+  box-sizing: border-box;
+  border: 0.5px solid #a9a9a9;
+  box-shadow: 3px 3px 5px black;
+}
+.co {
+  display: flex;
+  box-sizing: border-box;
+  border-bottom: 0.5px solid #a9a9a9;
+  padding: 10px;
+  flex: 8;
+}
+.co__header {
+  font-weight: bold;
+  display: flex;
+  flex: 1;
+}
+.co__header--text {
+  display: flex;
+  flex: 1;
+}
+.co__header--body {
+  margin: -10px;
+  display: flex;
+  flex: 5;
+}
+.co__header--close {
+  justify-content: right;
+  display: flex;
+  flex: 0;
+}
+.co__body {
+  box-sizing: border-box;
+  display: flex;
+  flex: 8;
+}
+.co__body--left {
+  padding: 10px;
+  flex: 5;
+}
+.co__body--right {
+  padding: 10px;
+  justify-content: left;
+  background-color: #efeff0;
+  flex: 3;
+}
+ul.breadcrumb {
+  padding: 10px;
+  list-style: none;
+}
+ul.breadcrumb li {
+  display: inline;
+  font-size: 16px;
+}
+ul.breadcrumb li + li:before {
+  padding: 10px;
+  content: "/";
+}
+ul.breadcrumb li a {
+  color: grey;
+  text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+  color: blue;
+  font-weight: bold;
+}
+ul.breadcrumb li .active {
+  color: black;
+  font-weight: bold;
+}
+i {
+  cursor: pointer;
+}

@@ -2,11 +2,12 @@
 import React from 'react';
 // eslint-disable-next-line import/named
 // eslint-disable-next-line import/no-named-default
-import { TextFieldDemo } from './pages';
+import { TextFieldDemo, SliderDemo } from './pages';
 
 function App() {
   return (
     <div className="App">
+      <SliderDemo />
       <TextFieldDemo />
     </div>
   );

@@ -2,9 +2,8 @@ export const style = {
   margin: '10px',
   padding: '5px',
   height: '30px',
-  // border: '0.5px solid silver',
   borderRadius: '4px',
-  width: '100%',
+  width: '97%',
   paddingInlineStart: '10px',
 };
 export const textStyle = {

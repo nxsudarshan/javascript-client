@@ -3,17 +3,29 @@
 import React from 'react';
 import { Slider } from '../../components';
 
-// eslint-disable-next-line react/require-render-return
-// eslint-disable-next-line react/prefer-stateless-function
-// eslint-disable-next-line react/require-render-return
-// eslint-disable-next-line react/prefer-stateless-function
 export class SliderDemo extends React.Component {
+  images = [
+    'cloud.jpg',
+    'dns-server.png',
+    'full-stack-web-development.jpg',
+    'js.jpg',
+    'load-balancer.png',
+  ];
+
   constructor(props) {
     super(props);
   }
 
   render() {
-    // eslint-disable-next-line no-unused-expressions
-    return <Slider alt="default.png" />;
+    return (
+      <Slider
+        altText="Default Banner"
+        banners={this.images}
+        defaultBanner="default.png"
+        duration="2000"
+        height="200"
+        random
+      />
+    );
   }
 }

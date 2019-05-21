@@ -4,7 +4,7 @@ export const style = {
   height: '30px',
   // border: '0.5px solid silver',
   borderRadius: '4px',
-  width: '100%',
+  width: '97%',
   paddingInlineStart: '10px',
 };
 export const textStyle = {

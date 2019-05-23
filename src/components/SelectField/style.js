@@ -5,12 +5,12 @@ export const style = {
   borderRadius: '4px',
   width: '98%',
   paddingInlineStart: '10px',
-  fontSize: '18px',
+  fontSize: '16px',
 };
 export const textStyle = {
   margin: 'auto',
   marginBottom: '1px',
   padding: '10px',
   fontWeight: 'bold',
-  fontSize: '22px',
+  fontSize: '18px',
 };

@@ -17,7 +17,7 @@ export const textStyle = {
   marginBottom: '1px',
   padding: '10px',
   fontWeight: 'bold',
-  fontSize: '22px',
+  fontSize: '18px',
 };
 
 export const errors = {

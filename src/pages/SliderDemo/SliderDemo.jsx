@@ -1,6 +1,8 @@
 /* eslint-disable react/require-render-return */
 /* eslint-disable no-useless-constructor */
 import React from 'react';
+import { Slider } from '../../components';
+
 
 export class SliderDemo extends React.Component {
   images = [
@@ -17,7 +19,14 @@ export class SliderDemo extends React.Component {
 
   render() {
     return (
-      'hi'
+      <Slider
+        altText="Default Banner"
+        banners={this.images}
+        defaultBanner="default.png"
+        duration="2000"
+        height="200"
+        random
+      />
     );
   }
 }

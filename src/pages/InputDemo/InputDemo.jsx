@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable dot-notation */
 /* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-sequences */
@@ -88,6 +89,7 @@ export class InputDemo extends React.Component {
             game={sport}
             options={Constants}
           />
+
         </div>
       );
     }

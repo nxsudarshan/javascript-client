@@ -3,6 +3,7 @@
 import React from 'react';
 import { Slider } from '../../components';
 
+
 export class SliderDemo extends React.Component {
   images = [
     'cloud.jpg',

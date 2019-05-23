@@ -9,7 +9,6 @@ export class Button extends React.Component {
     // * style (default {}, and must only accept object of strings)
     // * value (string and must be required)
     // * onClick (function and must be required)
-    console.log(...rest);
     const buttonResult = [
       <>
         <input {...rest} />

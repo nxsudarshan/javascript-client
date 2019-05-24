@@ -9,26 +9,29 @@ import React from 'react';
 import {
   style,
   textStyle,
-  errors,
   errorStyle,
 } from './style';
 
+const isError = {
+  borderColor: 'red',
+};
 // eslint-disable-next-line no-unused-vars
-let newStyle;
 export const TextField = (props) => {
-  const { error, ...rest } = props;
-  if (error) {
-    newStyle = Object.assign(errors, style);
-  } else {
-    newStyle = style;
-  }
+  const {
+    error,
+    errorsColor,
+    isTouched,
+    ...rest
+  } = props;
+  // const newStyle = error ? Object.assign(errors, style) : style;
+  const newStyle = !isTouched ? Object.assign({ ...style }, isError) : { ...style };
   const { onChange } = props;
   return (
 
     onChange ? (
       <>
         <p style={textStyle}>{props.title}</p>
-        <input {...rest} style={style} />
+        <input {...rest} style={newStyle} />
       </>
     ) :
       (

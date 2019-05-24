@@ -1,3 +1,5 @@
+/* eslint-disable no-unneeded-ternary */
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
 /* eslint-disable dot-notation */
 /* eslint-disable react/jsx-no-duplicate-props */
@@ -11,8 +13,16 @@ import { Constants } from '../../configs/constants';
 // eslint-disable-next-line import/named
 import { TextField, SelectField, RadioGroup } from '../../components';
 import { formSchema } from '../../configs/formSchema';
+import { errorStyle } from '../../components/TextField/style';
+import { Button } from '../../components/Button/Button';
 
-export const textStyle = {
+const touchedError = {
+  marginBottom: '1px',
+  padding: '10px',
+  fontWeight: 'bold',
+  color: 'red',
+};
+const textStyle = {
   margin: 'auto',
   marginBottom: '1px',
   padding: '10px',
@@ -20,11 +30,22 @@ export const textStyle = {
   fontSize: '18px',
 };
 
+const buttonStyle = {
+  backgroundColor: 'silver',
+  color: 'white',
+  fontSize: '14px',
+  border: 'none',
+  margin: '10px',
+  padding: '10px',
+};
+
 export class InputDemo extends React.Component {
   state = {
     ...Constants.First,
     errors: [],
     options: false,
+    touched: true,
+    noError: false,
   };
 
   componentDidUpdate() {
@@ -43,7 +64,6 @@ export class InputDemo extends React.Component {
       sport,
       options,
     } = this.state;
-
     formSchema.validate({
       name,
       sport,
@@ -52,10 +72,16 @@ export class InputDemo extends React.Component {
       .then((nErr) => {
         this.setState({
           errors: [],
+          options: true,
+          touched: true,
+          noError: true,
         });
       }).catch((err) => {
         this.setState({
           errors: err.inner,
+          options: true,
+          touched: false,
+          noError: false,
         });
       });
   }
@@ -65,7 +91,7 @@ export class InputDemo extends React.Component {
       this.setState({
         football: e.target.value,
         cricket: '',
-        options: true,
+        options: false,
       }, this.validate);
     } else {
       this.setState({
@@ -89,7 +115,6 @@ export class InputDemo extends React.Component {
             game={sport}
             options={Constants}
           />
-
         </div>
       );
     }
@@ -108,15 +133,69 @@ export class InputDemo extends React.Component {
     return index > -1 ? errors[index].message : '';
   }
 
+  _onFocus = () => {
+    this.setState({
+      touched: true,
+    }, this.validate);
+  }
+
+  _onBlur = () => {
+    this.setState({
+      touched: false,
+    }, this.validate);
+  }
+
+  buttonChangeHandle = (e) => {
+    console.log('testing');
+  }
+
   render() {
     return (
       <>
-        <TextField type="text" onChange={this.handleNameChange} title="Name" />
-        <span>{this.getError('name')}</span>
-        <SelectField type="text" onChange={this.handleSportChange} title="Select the game you play?" options={Constants} />
-        <span>{this.getError('sport')}</span>
+        <TextField
+          isTouched={this.state.touched}
+          type="text"
+          onChange={this.handleNameChange}
+          title="Name"
+          onFocus={this._onFocus}
+          onBlur={this._onBlur}
+        />
+
+        <span style={touchedError}>{this.getError('name')}</span>
+
+        <SelectField
+          type="text"
+          isTouched={this.state.touched}
+          onChange={this.handleSportChange}
+          title="Select the game you play?"
+          options={Constants}
+          onFocus={this._onFocus}
+          onBlur={this._onBlur}
+        />
+
+        <span style={touchedError}>{this.getError('sport')}</span>
+
         {this.radioOptions()}
-        <span>{this.getError('options')}</span>
+
+        <span style={touchedError}>{this.getError('options')}</span>
+
+        <div>
+          <Button
+            isTouched={this.state.touched && this.state.noError}
+            name="submit"
+            value="Submit"
+            style={buttonStyle}
+            onClick={this.buttonChangeHandle}
+            disabled={this.state.touched && this.state.noError}
+          />
+          <Button
+            name="submit"
+            value="Cancel"
+            style={buttonStyle}
+            onClick={this.buttonChangeHandle}
+            disabled={this.state.touched && this.state.noError}
+          />
+        </div>
       </>
     );
   }

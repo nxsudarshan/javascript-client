@@ -87,7 +87,8 @@ export class InputDemo extends React.Component {
   }
 
   optionsChangeHandler = (e, val) => {
-    if (this.state.sport !== 'Cricket') {
+    const sports = (Object.keys(Constants.Games));
+    if (this.state.sport !== sports) {
       this.setState({
         football: e.target.value,
         cricket: '',
@@ -189,7 +190,7 @@ export class InputDemo extends React.Component {
             disabled={this.state.touched && this.state.noError}
           />
           <Button
-            name="submit"
+            name="cancel"
             value="Cancel"
             style={buttonStyle}
             onClick={this.buttonChangeHandle}

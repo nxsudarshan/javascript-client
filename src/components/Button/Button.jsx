@@ -2,12 +2,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-const-assign */
 import React from 'react';
+import { greenButton } from './style';
 
 export class Button extends React.Component {
   render() {
-    const greenButton = {
-      backgroundColor: 'green',
-    };
     const {
       disabled,
       isTouched,

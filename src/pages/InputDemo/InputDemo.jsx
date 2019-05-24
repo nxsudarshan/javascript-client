@@ -14,7 +14,7 @@ import { Constants } from '../../configs/constants';
 import { TextField, SelectField, RadioGroup } from '../../components';
 import { formSchema } from '../../configs/formSchema';
 import { errorStyle } from '../../components/TextField/style';
-import { Button } from '../../components/Button/Button';
+import { Button } from '../../components/Button';
 
 const touchedError = {
   marginBottom: '1px',

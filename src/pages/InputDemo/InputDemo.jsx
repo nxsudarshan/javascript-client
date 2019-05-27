@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-boolean-value */
 /* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-sequences */

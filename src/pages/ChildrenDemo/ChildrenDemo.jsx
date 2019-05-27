@@ -8,7 +8,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { Math } from '../../components';
-import Children from './Children';
+import { Children } from './index';
 
 
 export class ChildrenDemo extends React.Component {

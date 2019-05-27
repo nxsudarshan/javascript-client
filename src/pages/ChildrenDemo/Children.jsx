@@ -8,7 +8,7 @@
 /* eslint-disable lines-between-class-members */
 import React from 'react';
 
-export default class Children extends React.Component {
+export class Children extends React.Component {
   opearators(operator) {
     return operator
       === '+' ? 'Sum'

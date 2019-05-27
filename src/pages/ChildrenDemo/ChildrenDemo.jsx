@@ -8,7 +8,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { Math } from '../../components';
-import { Children } from './index';
 
 
 export class ChildrenDemo extends React.Component {
@@ -18,7 +17,7 @@ export class ChildrenDemo extends React.Component {
         <Math
           first="10"
           second="40"
-          operator="/"
+          operator="+"
         >
           {({
             result,
@@ -27,12 +26,37 @@ export class ChildrenDemo extends React.Component {
             operator,
           }) => (
             <div>
-              <Children
-                first={first}
-                second={second}
-                operator={operator}
-                result={result}
-              />
+              {`${first} ${operator} ${second} = ${result}`}
+            </div>
+          )}
+        </Math>
+        <Math
+          first="10"
+          second="40"
+          operator="+"
+        >
+          {({
+            result,
+            first,
+            second,
+          }) => (
+            <div>
+              {`Sum of ${first} and ${second} is ${result}`}
+            </div>
+          )}
+        </Math>
+        <Math
+          first="10"
+          second="40"
+          operator="+"
+        >
+          {({
+            result,
+            first,
+            second,
+          }) => (
+            <div>
+              {`When we add ${first} and ${second} is result ${result}`}
             </div>
           )}
         </Math>

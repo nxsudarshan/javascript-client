@@ -21,7 +21,7 @@ export class RadioGroup extends React.Component {
         radioOptions.map(item => (
           <>
             <div>
-              <input type="radio" name="game" onClick={onChange} value={item} id={item} />
+              <input type="radio" name={type} onClick={onChange} value={item} id={item} />
               <label style={textStyle} htmlFor={item}>{item}</label>
             </div>
           </>

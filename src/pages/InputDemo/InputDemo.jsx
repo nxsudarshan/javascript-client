@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-sequences */
 /* eslint-disable react/destructuring-assignment */
@@ -28,11 +29,9 @@ export class InputDemo extends React.Component {
     if (this.state.sport !== 'Cricket') {
       this.setState({
         football: e.target.value,
-        cricket: '',
       });
     } else {
       this.setState({
-        football: '',
         cricket: e.target.value,
       });
     }
@@ -45,7 +44,6 @@ export class InputDemo extends React.Component {
       return (
         <div>
           <RadioGroup
-            checked={this.state.checked}
             onChange={this.optionsChangeHandler}
             game={sport}
             options={Constants}
@@ -59,7 +57,9 @@ export class InputDemo extends React.Component {
   handleSportChange = (e) => {
     this.setState({
       sport: e.target.value,
-    });
+      cricket: '',
+      football: '',
+    }, this.radioOptions);
   }
 
   render() {

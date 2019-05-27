@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class Button extends React.Component {
+export class ButtonComponent extends React.Component {
   render() {
     const { ...rest } = this.props;
     // Props

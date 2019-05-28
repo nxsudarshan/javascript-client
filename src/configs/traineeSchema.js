@@ -9,8 +9,8 @@ export const traineeSchema = yup.object().shape({
     .required('Email Address is a required'),
   password: yup.string()
     .required('Password is required')
-    .min(8, 'Password must contains * characters long')
-    .matches(/[a-zA-Z0-9]/, 'Password must content one upper case letter, one lower case letter and at least one number'),
+    .min(8, 'Password must contains 8 characters long')
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, 'Password must contains 8 character long one upper case letter, one lower case letter and at least one number'),
   confirmPassword: yup.string()
     .required('Confirm Password is required')
     .oneOf([yup.ref('password'), null], 'Must match password'),

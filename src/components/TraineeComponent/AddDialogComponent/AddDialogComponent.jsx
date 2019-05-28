@@ -66,6 +66,7 @@ export class AddDialogComponent extends React.Component {
       'email': email,
       'password': password,
     };
+    // eslint-disable-next-line no-console
     console.log(data);
   }
 

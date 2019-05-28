@@ -19,6 +19,7 @@ export class Trainee extends React.Component {
   }
 
   onSubmit = (obj) => {
+    // eslint-disable-next-line no-console
     console.log(obj);
     this.handleClickClose();
   }

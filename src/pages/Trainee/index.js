@@ -1,1 +1,1 @@
-export { AddDialog } from './component';
+export { Trainee } from './Trainee';

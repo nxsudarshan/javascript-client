@@ -4,22 +4,27 @@
 /* eslint-disable react/jsx-indent */
 /* eslint-disable indent */
 import React from 'react';
-// import { style, textStyle } from './style';
+import { style, textStyle } from './style';
 // eslint-disable-next-line react/prefer-stateless-function
 export class SelectField extends React.Component {
   render() {
     const {
       options,
+      value,
+      onChange,
+      title,
+      ...rest
     } = this.props;
-    return (options.map((item) => { console.log(item.label, item.value); }));
-
-    // <>
-    //     <select {...rest}>
-    //       <option disabled selected>{value}</option>
-    //       {
-    //         options.map((item) => { <><option value={item.label}>{item.value}</option></>; })
-    //       }
-    //     </select>
-    //   </>
+    return (
+      <>
+        <p style={textStyle}>{title}</p>
+        <select {...rest} style={style} onChange={onChange}>
+          <option disabled selected>{value}</option>
+          {
+            options.map(item => <option value={item.label}>{item.value}</option>)
+          }
+        </select>
+      </>
+    );
   }
 }

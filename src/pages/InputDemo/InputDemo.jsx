@@ -7,14 +7,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unused-state */
 import React from 'react';
-import { Constants } from '../../configs/constants';
+import { CRICKET_ARRAY, SELECT_ARRAY, FOOTBALL_ARRAY } from '../../configs/constants';
 // eslint-disable-next-line import/named
 import { TextField, SelectField, RadioGroup } from '../../components';
 
 export class InputDemo extends React.Component {
   state = {
-    ...Constants.First,
-  };
+    name: '',
+    sport: '',
+    cricket: '',
+    football: '',
+  }
 
   componentDidUpdate() {
     console.log(this.state);
@@ -27,48 +30,24 @@ export class InputDemo extends React.Component {
   }
 
   optionsChangeHandler = (e, val) => {
-    if (this.state.sport !== 'Cricket') {
-      this.setState({
-        football: e.target.value,
-      });
-    } else {
-      this.setState({
-        cricket: e.target.value,
-      });
-    }
+
   }
 
   radioOptions = () => {
-    const { sport } = this.state;
-    const Games = Object.keys(Constants.Games);
-    if (Games.includes(sport)) {
-      return (
-        <div>
-          <RadioGroup
-            onChange={this.optionsChangeHandler}
-            game={sport}
-            options={Constants}
-          />
-        </div>
-      );
-    }
-    return null;
+
   }
 
   handleSportChange = (e) => {
-    this.setState({
-      sport: e.target.value,
-      cricket: '',
-      football: '',
-    }, this.radioOptions);
+
   }
 
   render() {
+    console.log(CRICKET_ARRAY, SELECT_ARRAY, FOOTBALL_ARRAY);
+    const { name } = this.state;
     return (
       <>
-        <TextField type="text" onChange={this.handleNameChange} title="Name" />
-        <SelectField type="text" onChange={this.handleSportChange} title="Select the game you play" options={Constants} />
-        {this.radioOptions()}
+        <TextField type="text" title="Name" onChange={this.handleNameChange} value={name} />
+        <SelectField type="text" title="Select the game you play" error value onChange options />
       </>
     );
   }

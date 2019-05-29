@@ -38,16 +38,17 @@ export class InputDemo extends React.Component {
   }
 
   handleSportChange = (e) => {
-
+    this.setState({
+      sport: e.target.value,
+    });
   }
 
   render() {
-    console.log(CRICKET_ARRAY, SELECT_ARRAY, FOOTBALL_ARRAY);
     const { name } = this.state;
     return (
       <>
         <TextField type="text" title="Name" onChange={this.handleNameChange} value={name} />
-        <SelectField type="text" title="Select the game you play" error value onChange options />
+        <SelectField type="text" title="Select the game you play" value="Select" onChange={this.handleSportChange} options={SELECT_ARRAY} />
       </>
     );
   }

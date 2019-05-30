@@ -1,36 +1,43 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable indent */
 /* eslint-disable no-shadow */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
-import { style, textStyle, errors } from './style';
+import {
+  style,
+  textStyle,
+  errors,
+  errorStyle,
+} from './style';
 
 // eslint-disable-next-line no-unused-vars
 let newStyle;
 export const TextField = (props) => {
   const { error, ...rest } = props;
-  // eslint-disable-next-line no-shadow
-  // eslint-disable-next-line no-use-before-define
   if (error) {
     newStyle = Object.assign(errors, style);
   } else {
-    // eslint-disable-next-line no-self-assign
     newStyle = style;
   }
-  // eslint-disable-next-line no-return-assign
+  const { onChange } = props;
   return (
-    <>
-      <input
-        type="text"
-        style={newStyle}
-        {...rest}
-      />
-      {
-        // eslint-disable-next-line no-const-assign
-        <span style={textStyle}>{error}</span>
-      }
 
-    </>
-  );
+    onChange ? (
+      <>
+        <p style={textStyle}>{props.title}</p>
+        <input {...rest} style={style} />
+      </>
+    ) :
+      (
+        <>
+          <p style={textStyle}>There is no any Event on Input Field</p>
+          <input {...rest} style={style} />
+          {
+            <span style={errorStyle}>{error}</span>
+          }
+        </>
+      ));
 };

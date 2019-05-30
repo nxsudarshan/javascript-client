@@ -1,12 +1,15 @@
 /* eslint-disable semi */
 /* eslint-disable no-unused-expressions */
 import React from 'react';
-import { Login } from './pages';
+// import { Login } from './pages';
+import { Navbar, Trainee } from './pages';
 
 export default function App() {
   return (
     <div className="App">
-      <Login />
+      <Navbar />
+      <Trainee />
+      {/* <Login /> */}
     </div>
   );
 }

@@ -3,7 +3,7 @@ export const style = {
   padding: '5px',
   height: '30px',
   borderRadius: '4px',
-  width: '97%',
+  width: '96%',
   paddingInlineStart: '10px',
 };
 export const errorStyle = {

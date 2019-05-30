@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-unused-expressions */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-indent */
 /* eslint-disable indent */
@@ -7,18 +9,19 @@ import { style, textStyle } from './style';
 export class SelectField extends React.Component {
   render() {
     const {
-      title,
       options,
+      value,
+      onChange,
+      title,
       ...rest
     } = this.props;
-    const items = Object.keys(options.Games);
     return (
       <>
         <p style={textStyle}>{title}</p>
-        <select {...rest} style={style}>
-          <option selected disabled>Select</option>
+        <select {...rest} style={style} onChange={onChange}>
+          <option disabled selected>{value}</option>
           {
-            items.map(item => <option value={item} title={item}>{item}</option>)
+            options.map(item => <option value={item.label}>{item.value}</option>)
           }
         </select>
       </>

@@ -10,7 +10,6 @@ import {
 import { AuthRoute, PrivateRoute } from './routes';
 // import { Login } from './pages';
 // import { Login } from './pages';
-
 export default function App() {
   return (
     <div className="App">

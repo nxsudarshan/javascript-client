@@ -2,8 +2,6 @@
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { TextField } from '../../components';
-import { SliderDemo } from '../SliderDemo';
-
 export const TextFieldDemo = () => (
   <>
     <SliderDemo />

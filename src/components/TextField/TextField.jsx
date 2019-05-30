@@ -9,6 +9,7 @@ import React from 'react';
 import {
   style,
   textStyle,
+  errors,
   errorStyle,
 } from './style';
 
@@ -17,21 +18,19 @@ const isError = {
 };
 // eslint-disable-next-line no-unused-vars
 export const TextField = (props) => {
-  const {
-    error,
-    errorsColor,
-    isTouched,
-    ...rest
-  } = props;
-  // const newStyle = error ? Object.assign(errors, style) : style;
-  const newStyle = !isTouched ? Object.assign({ ...style }, isError) : { ...style };
+  const { error, ...rest } = props;
+  if (error) {
+    newStyle = Object.assign(errors, style);
+  } else {
+    newStyle = style;
+  }
   const { onChange } = props;
   return (
 
     onChange ? (
       <>
         <p style={textStyle}>{props.title}</p>
-        <input {...rest} style={newStyle} />
+        <input {...rest} style={style} />
       </>
     ) :
       (

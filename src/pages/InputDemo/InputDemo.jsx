@@ -1,7 +1,7 @@
-/* eslint-disable no-unneeded-ternary */
-/* eslint-disable no-underscore-dangle */
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
 /* eslint-disable no-console */
-/* eslint-disable dot-notation */
+/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-sequences */
 /* eslint-disable react/destructuring-assignment */
@@ -9,117 +9,67 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unused-state */
 import React from 'react';
-import { Constants } from '../../configs/constants';
+import {
+  CRICKET_ARRAY,
+  SELECT_ARRAY,
+  FOOTBALL_ARRAY,
+  CRICKET,
+  FOOTBALL,
+} from '../../configs/constants';
 // eslint-disable-next-line import/named
 import { TextField, SelectField, RadioGroup } from '../../components';
-import { formSchema } from '../../configs/formSchema';
-import { errorStyle } from '../../components/TextField/style';
-import { Button } from '../../components/Button';
-
-const touchedError = {
-  marginBottom: '1px',
-  padding: '10px',
-  fontWeight: 'bold',
-  color: 'red',
-};
-const textStyle = {
-  margin: 'auto',
-  marginBottom: '1px',
-  padding: '10px',
-  fontWeight: 'bold',
-  fontSize: '18px',
-};
-
-const buttonStyle = {
-  backgroundColor: 'silver',
-  color: 'white',
-  fontSize: '14px',
-  border: 'none',
-  margin: '10px',
-  padding: '10px',
-};
 
 export class InputDemo extends React.Component {
   state = {
-    ...Constants.First,
-    errors: [],
-    options: false,
-    touched: true,
-    noError: false,
-  };
+    name: '',
+    sport: '',
+    [CRICKET]: '',
+    [FOOTBALL]: '',
+  }
 
   componentDidUpdate() {
-
+    console.log(this.state);
   }
 
   handleNameChange = (e) => {
     this.setState({
       name: e.target.value,
-    }, this.validate);
+    });
   }
-
-  validate = () => {
-    const {
-      name,
-      sport,
-      options,
-    } = this.state;
-    formSchema.validate({
-      name,
-      sport,
-      options,
-    }, { abortEarly: false })
-      .then((nErr) => {
-        this.setState({
-          errors: [],
-          options: true,
-          touched: true,
-          noError: true,
-        });
-      }).catch((err) => {
-        this.setState({
-          errors: err.inner,
-          options: true,
-          touched: false,
-          noError: false,
-        });
-      });
-  }
-
-  optionsChangeHandler = (e, val) => {
-    const sports = (Object.keys(Constants.Games));
-    if (this.state.sport !== sports) {
-      this.setState({
-        football: e.target.value,
-        cricket: '',
-        options: false,
-      }, this.validate);
-    } else {
-      this.setState({
-        football: '',
-        cricket: e.target.value,
-        options: true,
-      }, this.validate);
-    }
+  optionsChangeHandler = value => (e) => {
+    this.setState({
+      [value]: '',
+    });
+    this.setState({
+      [value]: e.target.value,
+    });
   }
 
   radioOptions = () => {
-    const { sport } = this.state;
-    const Games = Object.keys(Constants.Games);
-    if (Games.includes(sport)) {
+    if (this.state.sport === CRICKET) {
+      const selected = this.state.Cricket;
       return (
         <div>
-          <p style={textStyle}>What you do?</p>
           <RadioGroup
-            checked={this.state.checked}
-            onChange={this.optionsChangeHandler}
-            game={sport}
-            options={Constants}
+            value={selected}
+            onChange={this.optionsChangeHandler(this.state.sport)}
+            options={CRICKET_ARRAY}
           />
         </div>
       );
     }
-    return null;
+    if (this.state.sport === FOOTBALL) {
+      const selected = this.state.Football;
+      return (
+        <div>
+          <RadioGroup
+            value={selected}
+            onChange={this.optionsChangeHandler(this.state.sport)}
+            options={FOOTBALL_ARRAY}
+          />
+        </div>
+      );
+    }
   }
 
   handleSportChange = (e) => {
@@ -169,7 +119,7 @@ export class InputDemo extends React.Component {
           isTouched={this.state.touched}
           onChange={this.handleSportChange}
           title="Select the game you play?"
-          options={Constants}
+          options={SELECT_ARRAY}
           onFocus={this._onFocus}
           onBlur={this._onBlur}
         />

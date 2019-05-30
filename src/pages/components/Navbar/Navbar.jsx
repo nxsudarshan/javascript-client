@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 
 const useStyles = ({
   root: {
+    marginTop: 80,
     spacing: 8,
   },
   menuButton: {
@@ -30,10 +31,10 @@ const useStyles = ({
 });
 class Navbar extends React.Component {
   render() {
-    const { classes } = this.props;
+    const { classes, children: Trainee } = this.props;
     const navbarOutput = [
       <div>
-        <AppBar position="static" m={0}>
+        <AppBar position="fixed">
           <Toolbar className={classes.content}>
             <Typography variant="h6" className={classes.title}>
               Trainee Portal
@@ -45,6 +46,10 @@ class Navbar extends React.Component {
             <Button color="inherit" className={classes.logout}>Logout</Button>
           </Toolbar>
         </AppBar>
+
+      </div>,
+      <div className={classes.root}>
+        <Trainee />
       </div>,
     ];
     return navbarOutput;

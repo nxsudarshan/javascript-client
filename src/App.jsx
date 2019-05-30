@@ -7,8 +7,9 @@ import { Navbar, Trainee } from './pages';
 export default function App() {
   return (
     <div className="App">
-      <Navbar />
-      <Trainee />
+      <Navbar>
+        {Trainee}
+      </Navbar>
       {/* <Login /> */}
     </div>
   );

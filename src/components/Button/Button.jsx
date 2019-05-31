@@ -21,7 +21,7 @@ export class Button extends React.Component {
     // * onClick (function and must be required)
     const buttonResult = [
       <>
-        <input type="button" style={newStyle} {...rest} disabled={!disabled} />
+        <input type="button" style={newStyle} {...rest} />
       </>,
     ];
     return buttonResult;

@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-vars */
 /* eslint-disable operator-linebreak */
 /* eslint-disable indent */
 /* eslint-disable no-shadow */
@@ -20,9 +23,9 @@ const isError = {
 export const TextField = (props) => {
   const { error, ...rest } = props;
   if (error) {
-    newStyle = Object.assign(errors, style);
+    const newStyle = Object.assign(errors, style);
   } else {
-    newStyle = style;
+    const newStyle = style;
   }
   const { onChange } = props;
   return (

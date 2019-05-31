@@ -1,3 +1,5 @@
+/* eslint-disable import/no-duplicates */
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-console */
@@ -9,6 +11,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unused-state */
 import React from 'react';
+import { Button } from '../../components';
 import {
   CRICKET_ARRAY,
   SELECT_ARRAY,
@@ -19,10 +22,19 @@ import {
 // eslint-disable-next-line import/named
 import { TextField, SelectField, RadioGroup } from '../../components';
 
+const touchedError = {
+  color: 'red',
+};
+
+const buttonStyle = {
+  backgroundColor: 'silver',
+  color: 'black',
+};
 export class InputDemo extends React.Component {
   state = {
     name: '',
     sport: '',
+    errors: [],
     [CRICKET]: '',
     [FOOTBALL]: '',
   }
@@ -36,6 +48,7 @@ export class InputDemo extends React.Component {
       name: e.target.value,
     });
   }
+
   optionsChangeHandler = value => (e) => {
     this.setState({
       [value]: '',

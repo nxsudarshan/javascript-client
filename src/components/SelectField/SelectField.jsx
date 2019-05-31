@@ -17,7 +17,7 @@ export class SelectField extends React.Component {
       <>
         <p style={textStyle}>{title}</p>
         <select {...rest} style={style} onChange={onChange}>
-          <option disabled selected>{value}</option>
+          <option disabled selected>Select</option>
           {
             options.map(item => <option value={item.label}>{item.value}</option>)
           }

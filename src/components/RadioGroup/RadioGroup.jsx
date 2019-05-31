@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable array-callback-return */
 import React from 'react';

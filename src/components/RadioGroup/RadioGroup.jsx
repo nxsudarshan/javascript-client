@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable array-callback-return */
 import React from 'react';
+
 import { textStyle } from './style';
 
 export class RadioGroup extends React.Component {
@@ -11,6 +12,7 @@ export class RadioGroup extends React.Component {
       value,
       onChange,
       options,
+      onFocus,
     } = this.props;
     return (
       options.map(item => (
@@ -22,8 +24,9 @@ export class RadioGroup extends React.Component {
             checked={value === item.value}
             id={item.value}
             onChange={onChange}
+            onFocus={onFocus}
           />
-          <label style={textStyle} htmlFor={item.value} c>{item.label}</label>
+          <label style={textStyle} htmlFor={item.value}>{item.label}</label>
         </div>
       ))
     );

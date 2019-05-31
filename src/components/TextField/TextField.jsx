@@ -21,15 +21,15 @@ const isError = {
 };
 // eslint-disable-next-line no-unused-vars
 export const TextField = (props) => {
+  let newStyle;
   const { error, ...rest } = props;
   if (error) {
-    const newStyle = Object.assign(errors, style);
+    newStyle = Object.assign(errors, style);
   } else {
-    const newStyle = style;
+    newStyle = style;
   }
   const { onChange } = props;
   return (
-
     onChange ? (
       <>
         <p style={textStyle}>{props.title}</p>

@@ -11,12 +11,13 @@ export class SelectField extends React.Component {
       value,
       onChange,
       title,
+      error,
       ...rest
     } = this.props;
     return (
       <>
         <p style={textStyle}>{title}</p>
-        <select {...rest} style={style} onChange={onChange}>
+        <select {...rest} error={error} style={style} onChange={onChange}>
           <option disabled selected>Select</option>
           {
             options.map(item => <option value={item.label}>{item.value}</option>)

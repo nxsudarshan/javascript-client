@@ -20,6 +20,8 @@ import {
   ChildrenDemo,
   TextFieldDemo,
   InputDemo,
+  NoMatch,
+  TraineeDetail,
 } from '../../../pages/index';
 
 const useStyles = ({
@@ -86,6 +88,8 @@ class Navbar extends React.Component {
               <Route path="/children-demo" component={ChildrenDemo} />
               <Route path="/textField-demo" component={TextFieldDemo} />
               <Route path="/input-demo" component={InputDemo} />
+              <Route path="/trainee/:id" component={TraineeDetail} />
+              <Route component={NoMatch} />
             </Switch>
           </div>
         </BrowserRouter>

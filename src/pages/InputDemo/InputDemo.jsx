@@ -76,7 +76,7 @@ export class InputDemo extends React.Component {
     }, this.validate);
   }
 
-  setError = (field) => {
+  isTouched = (field) => {
     const { errors } = this.state;
     const index = errors.findIndex(item => item.path === field);
     return index > -1;
@@ -91,7 +91,7 @@ export class InputDemo extends React.Component {
             value={cricket}
             onChange={this.optionsChangeHandler(this.state.sport)}
             options={CRICKET_ARRAY}
-            error={this.setError('radio')}
+            error={this.isTouched('radio')}
           />
 
           <span style={touchedError}>{this.getError('radio')}</span>
@@ -107,7 +107,7 @@ export class InputDemo extends React.Component {
             onChange={this.optionsChangeHandler(this.state.sport)}
             options={FOOTBALL_ARRAY}
             onFocus={this._onFocus}
-            error={this.setError('radio')}
+            error={this.isTouched('radio')}
           />
           <span style={touchedError}>{this.getError('radio')}</span>
         </div>
@@ -131,7 +131,7 @@ export class InputDemo extends React.Component {
     return index > -1 ? errors[index].message : '';
   }
 
-  buttonDisabled = () => {
+  hasErrors = () => {
     const { errors } = this.state;
     return errors.length !== 0;
   }
@@ -177,7 +177,7 @@ export class InputDemo extends React.Component {
           onChange={this.handleNameChange}
           title="Name"
           onBlur={this._onBlur}
-          error={this.setError('name')}
+          error={this.isTouched('name')}
         />
         <span style={touchedError}>{this.getError('name')}</span>
         <SelectField
@@ -187,7 +187,7 @@ export class InputDemo extends React.Component {
           title="Select the game you play?"
           options={SELECT_ARRAY}
           onBlur={this._onBlur}
-          error={this.setError('sport')}
+          error={this.isTouched('sport')}
         />
 
         <span style={touchedError}>{this.getError('sport')}</span>
@@ -200,7 +200,7 @@ export class InputDemo extends React.Component {
             value="Submit"
             style={buttonStyle}
             onClick={this.buttonSubmitChangeHandle}
-            disabled={this.buttonDisabled()}
+            disabled={this.hasErrors()}
           />
           <Button
             name="cancel"

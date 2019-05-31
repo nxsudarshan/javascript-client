@@ -226,10 +226,10 @@ export class AddDialog extends React.Component {
   }
 
   render() {
-    const { open, handleClickClose } = this.props;
+    const { open, onClose } = this.props;
     const dialogComponent = [
       <>
-        <Dialog open={open} onClose={handleClickClose} aria-labelledby="form-dialog-title">
+        <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">Add Trainee</DialogTitle>
           <DialogContent fullWidth>
             <Grid container spacing={1} xs={12}>
@@ -240,7 +240,7 @@ export class AddDialog extends React.Component {
             </Grid>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClickClose} color="primary">
+            <Button onClick={onClose} color="primary">
               Cancel
             </Button>
             <Button onClick={this.onSubmitHandle} disabled={this.buttonDisabled()} variant="contained" color="primary">

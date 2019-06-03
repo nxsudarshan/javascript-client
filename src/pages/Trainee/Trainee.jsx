@@ -6,6 +6,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { AddDialog } from './component';
 import { default as TraineeList } from './TraineeList';
+import { TableDemo } from '../index';
 
 export class Trainee extends React.Component {
   state = {
@@ -32,6 +33,7 @@ export class Trainee extends React.Component {
         <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
           Add TraineeList
         </Button>
+        <TableDemo />
         <TraineeList />
         <AddDialog
           open={this.state.open}

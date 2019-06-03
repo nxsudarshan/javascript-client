@@ -9,7 +9,6 @@
 import React from 'react';
 import { Math } from '../../components';
 
-
 export class ChildrenDemo extends React.Component {
   render() {
     return (
@@ -26,6 +25,8 @@ export class ChildrenDemo extends React.Component {
             operator,
           }) => (
             <div>
+                Default Template
+              <br />
               {`${first} ${operator} ${second} = ${result}`}
             </div>
           )}
@@ -54,9 +55,25 @@ export class ChildrenDemo extends React.Component {
             result,
             first,
             second,
+            operator,
           }) => (
             <div>
-              {`When we add ${first} and ${second} is result ${result}`}
+              {`${first} ${operator} ${second}=${result}`}
+            </div>
+          )}
+        </Math>
+        <Math
+          first="10"
+          second="40"
+          operator="+"
+        >
+          {({
+            result,
+            first,
+            second,
+          }) => (
+            <div>
+              {` When we add ${first} with ${second} then we will get ${result} as result`}
             </div>
           )}
         </Math>

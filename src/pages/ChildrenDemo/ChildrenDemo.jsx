@@ -22,6 +22,24 @@ export class ChildrenDemo extends React.Component {
             result,
             first,
             second,
+            operator,
+          }) => (
+            <div>
+              Default Template
+              <br />
+              {`${first} ${operator} ${second} = ${result}`}
+            </div>
+          )}
+        </Math>
+        <Math
+          first="10"
+          second="40"
+          operator="+"
+        >
+          {({
+            result,
+            first,
+            second,
           }) => (
             <div>
               {`Sum of ${first} and ${second} is ${result}`}

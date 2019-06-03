@@ -10,7 +10,7 @@ export class RadioGroup extends React.Component {
   render() {
     const {
       value,
-      onChange,
+      onClick,
       options,
       onFocus,
     } = this.props;
@@ -23,7 +23,7 @@ export class RadioGroup extends React.Component {
             name={value}
             checked={value === item.value}
             id={item.value}
-            onChange={onChange}
+            onClick={onClick}
             onFocus={onFocus}
           />
           <label style={textStyle} htmlFor={item.value}>{item.label}</label>

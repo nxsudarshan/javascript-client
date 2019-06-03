@@ -89,11 +89,10 @@ export class InputDemo extends React.Component {
         <div>
           <RadioGroup
             value={cricket}
-            onChange={this.optionsChangeHandler(this.state.sport)}
+            onClick={this.optionsChangeHandler(this.state.sport)}
             options={CRICKET_ARRAY}
             error={this.isTouched('radio')}
           />
-
           <span style={touchedError}>{this.getError('radio')}</span>
         </div>
       );
@@ -104,7 +103,7 @@ export class InputDemo extends React.Component {
         <div>
           <RadioGroup
             value={football}
-            onChange={this.optionsChangeHandler(this.state.sport)}
+            onClick={this.optionsChangeHandler(this.state.sport)}
             options={FOOTBALL_ARRAY}
             onFocus={this._onFocus}
             error={this.isTouched('radio')}
@@ -117,10 +116,8 @@ export class InputDemo extends React.Component {
 
   handleSportChange = (e) => {
     this.setState({
-      radio: '',
-      sport: '',
-    });
-    this.setState({
+      cricket: '',
+      football: '',
       sport: e.target.value,
     }, this.validate);
   }
@@ -168,6 +165,12 @@ export class InputDemo extends React.Component {
       });
   }
 
+  clearRadioOptions = () => {
+    this.setState({
+      radio: '',
+    }, this.validate);
+  }
+
   render() {
     return (
       <>
@@ -181,6 +184,7 @@ export class InputDemo extends React.Component {
         />
         <span style={touchedError}>{this.getError('name')}</span>
         <SelectField
+          onFocus={this.clearRadioOptions}
           type="text"
           isTouched={this.state.touched}
           onChange={this.handleSportChange}
@@ -191,9 +195,7 @@ export class InputDemo extends React.Component {
         />
 
         <span style={touchedError}>{this.getError('sport')}</span>
-
         {this.radioOptions()}
-
         <div>
           <Button
             name="submit"

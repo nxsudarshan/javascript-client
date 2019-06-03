@@ -1,14 +1,8 @@
-/* eslint-disable react/style-prop-object */
-/* eslint-disable no-unneeded-ternary */
 /* eslint-disable react/prop-types */
-/* eslint-disable no-const-assign */
 import React from 'react';
-import { greenButton } from './style';
+import { greenButton, buttonStyle } from './style';
 
-const buttonStyle = {
-  float: 'right',
-};
-export class Button extends React.Component {
+export class ButtonComponent extends React.Component {
   render() {
     const {
       value,
@@ -16,7 +10,14 @@ export class Button extends React.Component {
       style,
       ...rest
     } = this.props;
-    const newStyle = !disabled && value === 'Submit' ? Object.assign({ ...style }, greenButton) : { ...style };
+    const newStyle = !disabled && value
+      === 'Submit' ? Object.assign(
+        {
+          ...style,
+        },
+        greenButton,
+      )
+      : { ...style };
     // Props
     // * color (default: ‘default’, or ‘primary’)
     // * disabled (boolean, default: false)

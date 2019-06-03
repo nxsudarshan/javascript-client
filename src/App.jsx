@@ -1,10 +1,12 @@
+/* eslint-disable semi */
+/* eslint-disable no-unused-expressions */
 import React from 'react';
-import { InputDemo } from './pages';
+import { ChildrenDemo } from './pages';
 
 export default function App() {
   return (
     <div className="App">
-      <InputDemo />
+      <ChildrenDemo />
     </div>
   );
 }

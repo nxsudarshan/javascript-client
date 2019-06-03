@@ -1,4 +1,7 @@
 export const greenButton = {
   backgroundColor: 'green',
-  color:'white',
+  color: 'white',
+};
+export const buttonStyle = {
+  float: 'right',
 };

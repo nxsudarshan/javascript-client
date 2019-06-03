@@ -12,7 +12,7 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react';
 
-import { Button } from '../../components';
+import { ButtonComponent as Button } from '../../components';
 import {
   CRICKET_ARRAY,
   SELECT_ARRAY,

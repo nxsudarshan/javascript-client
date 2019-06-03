@@ -10,6 +10,7 @@ export class SelectField extends React.Component {
       options,
       value,
       onChange,
+      onBlur,
       title,
       error,
       ...rest
@@ -17,7 +18,7 @@ export class SelectField extends React.Component {
     return (
       <>
         <p style={textStyle}>{title}</p>
-        <select {...rest} error={error} style={style} onChange={onChange}>
+        <select {...rest} error={error} style={style} onChange={onChange} onBlur={onBlur}>
           <option disabled selected>Select</option>
           {
             options.map(item => <option value={item.label}>{item.value}</option>)

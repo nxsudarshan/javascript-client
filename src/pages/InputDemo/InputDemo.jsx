@@ -68,9 +68,6 @@ export class InputDemo extends React.Component {
 
   optionsChangeHandler = value => (e) => {
     this.setState({
-      [value]: '',
-    });
-    this.setState({
       [value]: e.target.value,
       radio: e.target.value,
     }, this.validate);
@@ -105,7 +102,6 @@ export class InputDemo extends React.Component {
             value={football}
             onClick={this.optionsChangeHandler(this.state.sport)}
             options={FOOTBALL_ARRAY}
-            onFocus={this._onFocus}
             error={this.isTouched('radio')}
           />
           <span style={touchedError}>{this.getError('radio')}</span>
@@ -116,9 +112,10 @@ export class InputDemo extends React.Component {
 
   handleSportChange = (e) => {
     this.setState({
+      sport: e.target.value,
       cricket: '',
       football: '',
-      sport: e.target.value,
+      radio: '',
     }, this.validate);
   }
 
@@ -167,7 +164,6 @@ export class InputDemo extends React.Component {
 
   clearRadioOptions = () => {
     this.setState({
-      radio: '',
     }, this.validate);
   }
 
@@ -184,13 +180,12 @@ export class InputDemo extends React.Component {
         />
         <span style={touchedError}>{this.getError('name')}</span>
         <SelectField
-          onFocus={this.clearRadioOptions}
+          onBlur={this.clearRadioOptions}
           type="text"
           isTouched={this.state.touched}
           onChange={this.handleSportChange}
           title="Select the game you play?"
           options={SELECT_ARRAY}
-          onBlur={this._onBlur}
           error={this.isTouched('sport')}
         />
 

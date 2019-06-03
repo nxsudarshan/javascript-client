@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-vars */
 /* eslint-disable operator-linebreak */
 /* eslint-disable indent */
 /* eslint-disable no-shadow */
@@ -13,9 +16,12 @@ import {
   errorStyle,
 } from './style';
 
+const isError = {
+  borderColor: 'red',
+};
 // eslint-disable-next-line no-unused-vars
-let newStyle;
 export const TextField = (props) => {
+  let newStyle;
   const { error, ...rest } = props;
   if (error) {
     newStyle = Object.assign(errors, style);
@@ -24,7 +30,6 @@ export const TextField = (props) => {
   }
   const { onChange } = props;
   return (
-
     onChange ? (
       <>
         <p style={textStyle}>{props.title}</p>

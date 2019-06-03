@@ -7,18 +7,21 @@ import { style, textStyle } from './style';
 export class SelectField extends React.Component {
   render() {
     const {
-      title,
       options,
+      value,
+      onChange,
+      onBlur,
+      title,
+      error,
       ...rest
     } = this.props;
-    const items = Object.keys(options.Games);
     return (
       <>
         <p style={textStyle}>{title}</p>
-        <select {...rest} style={style}>
-          <option selected disabled>Select</option>
+        <select {...rest} error={error} style={style} onChange={onChange} onBlur={onBlur}>
+          <option disabled selected>Select</option>
           {
-            items.map(item => <option value={item} title={item}>{item}</option>)
+            options.map(item => <option value={item.label}>{item.value}</option>)
           }
         </select>
       </>

@@ -41,16 +41,31 @@ export class AddDialog extends React.Component {
     margin: 8,
   };
 
-  state = {
-    errors: [''],
-    name: '',
-    email: '',
-    open: false,
-    password: '',
-    confirmPassword: '',
-    showPassword: false,
-    showConfirmPassword: false,
-    hasError: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      errors: [''],
+      name: '',
+      email: '',
+      open: false,
+      password: '',
+      confirmPassword: '',
+      showPassword: false,
+      showConfirmPassword: false,
+      hasError: false,
+      isTouched: {
+        name: false,
+        email: false,
+        password: false,
+        confirmPassword: false,
+      },
+      isError: {
+        name: false,
+        email: false,
+        password: false,
+        confirmPassword: false,
+      },
+    };
   }
 
   handlePassword = pass => (e) => {
@@ -68,7 +83,13 @@ export class AddDialog extends React.Component {
   }
 
   getTextField = (event) => {
+    const { errors, isTouched, isError } = this.state;
+    isTouched[event.target.name] = true;
+    const index = errors.findIndex(item => item.path === event.target.name);
+    isError[event.target.name] = ((index > -1) && (isTouched[event.target.name]));
     this.setState({
+      isTouched,
+      isError,
       hasError: true,
       [event.target.name]: event.target.value,
     }, this.validate);
@@ -99,6 +120,29 @@ export class AddDialog extends React.Component {
       });
   }
 
+  onBlurHandler = (event) => {
+    const { errors, isTouched, isError } = this.state;
+    isTouched[event.target.name] = true;
+    const index = errors.findIndex(item => item.path === event.target.name);
+    isError[event.target.name] = ((index > -1) && (isTouched[event.target.name]));
+    this.setState({
+      isTouched,
+      isError,
+    });
+  }
+
+  onFocusHandler = (field) => {
+    const { errors, isTouched, isError } = this.state;
+    isTouched[field] = true;
+    const index = errors.findIndex(item => item.path === field);
+    // return ((index > -1) && (isTouched[field]));
+    isError[field] = ((index > -1) && (isTouched[field]));
+    this.setState({
+      isTouched,
+      isError,
+    }, this.validate);
+  }
+
   getError = (field) => {
     const { errors } = this.state;
     const index = errors.findIndex(item => item.path === field);
@@ -106,9 +150,9 @@ export class AddDialog extends React.Component {
   }
 
   setError = (field) => {
-    const { errors } = this.state;
+    const { errors, isTouched } = this.state;
     const index = errors.findIndex(item => item.path === field);
-    return index > -1;
+    return ((index > -1) && (isTouched[field]));
   }
 
   buttonDisabled = () => {
@@ -123,7 +167,7 @@ export class AddDialog extends React.Component {
   }
 
   handleGrid = () => {
-    const { hasError } = this.state;
+    const { hasError, isError } = this.state;
     const resultGrid = [
       <>
         <Grid item xs={12}>
@@ -134,8 +178,9 @@ export class AddDialog extends React.Component {
               aria-describedby="name-helper-text"
               id="standard-required"
               onChange={this.getTextField}
-              onBlur={this.validate}
-              error={this.setError('name')}
+              onBlur={this.onBlurHandler}
+              onFocus={() => this.onFocusHandler('name')}
+              error={isError.name}
               label="Name"
               // className={classes.textField}
               variant="outlined"
@@ -147,7 +192,7 @@ export class AddDialog extends React.Component {
                 ),
               }}
             />
-            <FormHelperText id="name-helper-text" style={this.errorStyle}>{this.getError('name')}</FormHelperText>
+            { isError.name ? <FormHelperText id="name-helper-text" style={this.errorStyle}>{this.getError('name')}</FormHelperText> : '' }
           </FormControl>
         </Grid>
         <Grid item xs={12}>
@@ -160,7 +205,7 @@ export class AddDialog extends React.Component {
               variant="outlined"
               onChange={this.getTextField}
               onBlur={this.validate}
-              error={this.setError('email')}
+              error={() => this.setError('email')}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -184,7 +229,7 @@ export class AddDialog extends React.Component {
               values={this.state.password}
               onBlur={this.validate}
               onChange={this.getTextField}
-              error={this.setError('password')}
+              error={() => this.setError('password')}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -206,7 +251,7 @@ export class AddDialog extends React.Component {
               label="Confirm Password"
               // className={classes.textField}
               variant="outlined"
-              error={this.setError('confirmPassword')}
+              error={() => this.setError('confirmPassword')}
               onChange={this.getTextField}
               onBlur={this.validate}
               type={this.state.showConfirmPassword ? 'text' : 'password'}

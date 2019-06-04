@@ -50,6 +50,7 @@ export class AddDialog extends React.Component {
     confirmPassword: '',
     showPassword: false,
     showConfirmPassword: false,
+    touched: false,
   }
 
   handlePassword = pass => (e) => {
@@ -88,10 +89,12 @@ export class AddDialog extends React.Component {
       .then((noRrr) => {
         this.setState({
           errors: [],
+          touched: false,
         });
       }).catch((err) => {
         this.setState({
           errors: err.inner,
+          touched: true,
         });
       });
   }
@@ -120,6 +123,8 @@ export class AddDialog extends React.Component {
   }
 
   handleGrid = () => {
+    const { touched } = this.state;
+    console.log(touched);
     const resultGrid = [
       <>
         <Grid item xs={12}>
@@ -129,7 +134,6 @@ export class AddDialog extends React.Component {
               name="name"
               aria-describedby="name-helper-text"
               id="standard-required"
-              onFocus={this.getTextField}
               onChange={this.getTextField}
               error={this.setError('name')}
               label="Name"
@@ -155,7 +159,6 @@ export class AddDialog extends React.Component {
               // className={classes.textField}
               variant="outlined"
               onChange={this.getTextField}
-              onFocus={this.getTextField}
               error={this.setError('email')}
               InputProps={{
                 startAdornment: (
@@ -176,7 +179,6 @@ export class AddDialog extends React.Component {
               label="Password"
               // className={classes.textField}
               variant="outlined"
-              onFocus={this.getTextField}
               type={this.state.showPassword ? 'text' : 'password'}
               values={this.state.password}
               onChange={this.getTextField}
@@ -202,7 +204,6 @@ export class AddDialog extends React.Component {
               label="Confirm Password"
               // className={classes.textField}
               variant="outlined"
-              onFocus={this.getTextField}
               onChange={this.getTextField}
               type={this.state.showConfirmPassword ? 'text' : 'password'}
               values={this.state.confirmPassword}
@@ -225,11 +226,27 @@ export class AddDialog extends React.Component {
     return resultGrid;
   }
 
+  closeDialog = () => {
+    const { onClose } = this.props;
+    this.setState({
+      errors: [''],
+      name: '',
+      email: '',
+      open: false,
+      password: '',
+      confirmPassword: '',
+      showPassword: false,
+      showConfirmPassword: false,
+      touched: false,
+    });
+    onClose();
+  }
+
   render() {
-    const { open, onClose } = this.props;
+    const { open } = this.props;
     const dialogComponent = [
       <>
-        <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
+        <Dialog open={open} onClose={this.closeDialog} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">Add Trainee</DialogTitle>
           <DialogContent fullWidth>
             <Grid container spacing={1} xs={12}>
@@ -240,7 +257,7 @@ export class AddDialog extends React.Component {
             </Grid>
           </DialogContent>
           <DialogActions>
-            <Button onClick={onClose} color="primary">
+            <Button onClick={this.closeDialog} color="primary">
               Cancel
             </Button>
             <Button onClick={this.onSubmitHandle} disabled={this.buttonDisabled()} variant="contained" color="primary">

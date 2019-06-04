@@ -1,3 +1,6 @@
+/* eslint-disable no-sequences */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable array-callback-return */
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/sort-comp */
@@ -25,6 +28,7 @@ class TableComponent extends React.Component {
       columns,
       id,
     } = this.props;
+    const field = columns.map(item => item.field);
     return (
       <div className={classes.root}>
         <Paper className={classes.paper}>
@@ -47,18 +51,22 @@ class TableComponent extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody>
+
               {
                 data.map(row => (
                   <TableRow key={row.id}>
-                    <TableCell
-                      align="center"
-                      scope="row"
-                    >
-                      {row.name}
-                    </TableCell>
-                    <TableCell>{row.email}</TableCell>
+                    {columns.map(items => (
+                      <TableCell
+                        scope="row"
+                        align={items.align}
+                      >
+                        {row[items.field]}
+                      </TableCell>
+                    ))
+                    }
                   </TableRow>
-                ))}
+                ))
+              }
             </TableBody>
           </Table>
         </Paper>

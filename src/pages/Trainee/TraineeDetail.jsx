@@ -55,11 +55,11 @@ const cardStyles = {
   },
 };
 class TraineeDetail extends React.Component {
-  getDate = date => moment(date).format('dddd, MMMM Do YYYY, h: mm: ss a')
+  getDateFormatted = date => moment(date).format('dddd, MMMM Do YYYY, h: mm: ss a')
 
   render() {
     const { match, classes } = this.props;
-    console.log(match);
+    console.log(this.props);
     const { params } = match;
     const getRow = traineeData.filter(row => row.id === params.id);
     console.log(getRow);
@@ -77,7 +77,7 @@ class TraineeDetail extends React.Component {
               {getRow.map(item => item.name)}
             </Typography>
             <Typography variant="h6" gutterBottom className={classes.date}>
-              {this.getDate(getRow.map(item => item.createdAt))}
+              {this.getDateFormatted(getRow.map(item => item.createdAt))}
             </Typography>
             <Typography variant="h5" gutterBottom>
               {getRow.map(item => item.email)}
@@ -96,10 +96,5 @@ class TraineeDetail extends React.Component {
     return traineeDetailOutput;
   }
 }
-
-TraineeDetail.propTypes = {
-  match: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(cardStyles)(TraineeDetail);

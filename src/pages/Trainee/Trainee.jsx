@@ -54,7 +54,6 @@ class Trainee extends React.Component {
         </div>
         <br />
         <TableDemo />
-        <TraineeList />
         <AddDialog
           open={this.state.open}
           onClose={this.handleClickClose}

@@ -1,11 +1,28 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
+import moment from 'moment';
 
 import { TableComponent } from '../../components';
 import { traineeData } from '../Trainee';
+import { dateFormat } from '../../configs/constants';
 
 export class TableDemo extends React.Component {
+  state = {
+    order: '',
+    orderBy: '',
+  }
+
+  stringToUpperCase = value => value && value.toUpperCase();
+
+  getFormattedDate = date => moment(date).format(dateFormat);
+
+  handleChange = (orderDetails) => {
+    this.setState({ ...orderDetails });
+  }
+
   render() {
+    const { order, orderBy } = this.state;
     return (
       <TableComponent
         id="id"
@@ -18,9 +35,20 @@ export class TableDemo extends React.Component {
           {
             field: 'email',
             label: 'Email Address',
+            format: this.stringToUpperCase,
+          },
+          {
+            field: 'createdAt',
+            label: 'Date',
+            format: this.getFormattedDate,
+            align: 'right',
           },
         ]}
         data={traineeData}
+        order={order}
+        orderBy={orderBy}
+        onSort={this.handleChange}
+        onSelect=""
       />
     );
   }

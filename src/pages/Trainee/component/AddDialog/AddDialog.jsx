@@ -124,7 +124,6 @@ export class AddDialog extends React.Component {
 
   handleGrid = () => {
     const { touched } = this.state;
-    console.log(touched);
     const resultGrid = [
       <>
         <Grid item xs={12}>

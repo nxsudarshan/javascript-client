@@ -50,7 +50,7 @@ export class AddDialog extends React.Component {
     confirmPassword: '',
     showPassword: false,
     showConfirmPassword: false,
-    touched: false,
+    hasError: false,
   }
 
   handlePassword = pass => (e) => {
@@ -69,6 +69,7 @@ export class AddDialog extends React.Component {
 
   getTextField = (event) => {
     this.setState({
+      hasError: true,
       [event.target.name]: event.target.value,
     }, this.validate);
   }
@@ -89,12 +90,11 @@ export class AddDialog extends React.Component {
       .then((noRrr) => {
         this.setState({
           errors: [],
-          touched: false,
+          hasError: false,
         });
       }).catch((err) => {
         this.setState({
           errors: err.inner,
-          touched: true,
         });
       });
   }
@@ -123,7 +123,7 @@ export class AddDialog extends React.Component {
   }
 
   handleGrid = () => {
-    const { touched } = this.state;
+    const { hasError } = this.state;
     const resultGrid = [
       <>
         <Grid item xs={12}>
@@ -134,6 +134,7 @@ export class AddDialog extends React.Component {
               aria-describedby="name-helper-text"
               id="standard-required"
               onChange={this.getTextField}
+              onBlur={this.validate}
               error={this.setError('name')}
               label="Name"
               // className={classes.textField}
@@ -158,6 +159,7 @@ export class AddDialog extends React.Component {
               // className={classes.textField}
               variant="outlined"
               onChange={this.getTextField}
+              onBlur={this.validate}
               error={this.setError('email')}
               InputProps={{
                 startAdornment: (
@@ -180,6 +182,7 @@ export class AddDialog extends React.Component {
               variant="outlined"
               type={this.state.showPassword ? 'text' : 'password'}
               values={this.state.password}
+              onBlur={this.validate}
               onChange={this.getTextField}
               error={this.setError('password')}
               InputProps={{
@@ -203,10 +206,11 @@ export class AddDialog extends React.Component {
               label="Confirm Password"
               // className={classes.textField}
               variant="outlined"
+              error={this.setError('confirmPassword')}
               onChange={this.getTextField}
+              onBlur={this.validate}
               type={this.state.showConfirmPassword ? 'text' : 'password'}
               values={this.state.confirmPassword}
-              error={this.setError('confirmPassword')}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -236,7 +240,6 @@ export class AddDialog extends React.Component {
       confirmPassword: '',
       showPassword: false,
       showConfirmPassword: false,
-      touched: false,
     });
     onClose();
   }

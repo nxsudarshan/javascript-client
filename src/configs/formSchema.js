@@ -6,6 +6,6 @@ export const formSchema = yup.object().shape({
     .min(3, 'Name minimum of 3 characters'),
   sport: yup.string()
     .required('Sport is Required'),
-  options: yup.string()
+  options: yup.boolean()
     .required('What you do is required'),
 });

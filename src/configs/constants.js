@@ -7,8 +7,8 @@ export const CRICKET_BOWLER = 'Bowler';
 export const CRICKET_BATSMAN = 'Batsman';
 export const FOOTBALL_DEFENDER = 'Defender';
 export const FOOTBALL_STRIKER = 'Striker';
-export const CRICKET = 'Cricket';
-export const FOOTBALL = 'Football';
+export const CRICKET = 'cricket';
+export const FOOTBALL = 'football';
 export const CRICKET_ARRAY = [
   { label: CRICKET_WICKETKEEPER, value: CRICKET_WICKETKEEPER },
   { label: CRICKET_BATSMAN, value: CRICKET_BATSMAN },

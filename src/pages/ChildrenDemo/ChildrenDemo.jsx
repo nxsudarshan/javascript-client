@@ -9,7 +9,6 @@
 import React from 'react';
 import { Math } from '../../components';
 
-
 export class ChildrenDemo extends React.Component {
   render() {
     return (
@@ -26,6 +25,8 @@ export class ChildrenDemo extends React.Component {
             operator,
           }) => (
             <div>
+              Default Template
+              <br />
               {`${first} ${operator} ${second} = ${result}`}
             </div>
           )}

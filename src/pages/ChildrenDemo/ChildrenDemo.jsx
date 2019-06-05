@@ -25,7 +25,7 @@ export class ChildrenDemo extends React.Component {
             operator,
           }) => (
             <div>
-              Default Template
+                Default Template
               <br />
               {`${first} ${operator} ${second} = ${result}`}
             </div>

@@ -1,5 +1,3 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable no-unused-expressions */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-indent */
 /* eslint-disable indent */
@@ -12,14 +10,16 @@ export class SelectField extends React.Component {
       options,
       value,
       onChange,
+      onBlur,
       title,
+      error,
       ...rest
     } = this.props;
     return (
       <>
         <p style={textStyle}>{title}</p>
-        <select {...rest} style={style} onChange={onChange}>
-          <option disabled selected>{value}</option>
+        <select {...rest} error={error} style={style} onChange={onChange} onBlur={onBlur}>
+          <option disabled selected>Select</option>
           {
             options.map(item => <option value={item.label}>{item.value}</option>)
           }

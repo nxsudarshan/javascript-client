@@ -17,8 +17,10 @@ export const style = {
   },
   alternateRow: {
     '&:nth-of-type(odd)': {
-      background: 'lightGrey',
+      background: '#FFFFFF',
     },
+  },
+  rowHover: {
     '&:hover': {
       cursor: 'pointer',
     },

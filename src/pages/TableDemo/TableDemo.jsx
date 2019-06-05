@@ -2,12 +2,19 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import moment from 'moment';
+import Button from '@material-ui/core/Button';
+import Edit from '@material-ui/icons/Edit';
+import Delete from '@material-ui/icons/Delete';
 
 import { TableComponent } from '../../components';
 import { traineeData } from '../Trainee';
 import { dateFormat } from '../../configs/constants';
 
 export class TableDemo extends React.Component {
+  page = 0;
+
+  count = 100;
+
   state = {
     order: '',
     orderBy: '',
@@ -19,6 +26,18 @@ export class TableDemo extends React.Component {
 
   handleChange = (orderDetails) => {
     this.setState({ ...orderDetails });
+  }
+
+  handlerEditDialogOpen = () => {
+
+  }
+
+  handlerDeleteDialogOpen = () => {
+
+  }
+
+  handleSelect = (e) => {
+    console.log(e);
   }
 
   render() {
@@ -48,7 +67,20 @@ export class TableDemo extends React.Component {
         order={order}
         orderBy={orderBy}
         onSort={this.handleChange}
-        onSelect=""
+        onSelect={this.handleSelect}
+        actions={[
+          {
+            icon: <Edit />,
+            handler: this.handlerEditDialogOpen,
+          },
+          {
+            icon: <Delete />,
+            handler: this.handlerDeleteDialogOpen,
+          },
+        ]}
+        count={this.count}
+        page={this.page}
+        onChangePage={this.handleChangePage}
       />
     );
   }

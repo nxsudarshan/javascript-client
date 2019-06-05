@@ -34,8 +34,18 @@ class TableComponent extends React.Component {
     });
   }
 
+  handleChangePage = (event) => {
+    const { onChangePage } = this.props;
+    console.log(event.target.value);
+    // onChangePage(value);
+  }
+
+  handleNoHandler = () => {
+    console.log('there is no handler for it');
+  }
+
+
   render() {
-    console.log(style);
     const {
       classes,
       data,
@@ -44,7 +54,9 @@ class TableComponent extends React.Component {
       orderBy,
       onSort,
       onSelect,
-      id,
+      actions,
+      count,
+      page,
     } = this.props;
     return (
       <div className={classes.root}>
@@ -65,7 +77,7 @@ class TableComponent extends React.Component {
                         <TableSortLabel
                           active={orderBy === item.field}
                           direction={order}
-                          onClick={this.createSortHandler(item.field)}
+                          onChange={() => this.createSortHandler(item.field)}
                         >
                           {item.label}
                         </TableSortLabel>
@@ -73,15 +85,21 @@ class TableComponent extends React.Component {
                     </>
                   ))
                 }
+                <TableCell
+                  key=""
+                  align=""
+                  title=""
+                />
               </TableRow>
             </TableHead>
             <TableBody>
-
               {
                 data.map(row => (
-                  <TableRow key={row.id} className={classes.alternateRow}>
+                  <TableRow className={classes.alternateRow} hover>
                     {columns.map(items => (
                       <TableCell
+                        className={classes.rowHover}
+                        key={row[items.field]}
                         scope="row"
                         align={items.align}
                       >
@@ -92,13 +110,26 @@ class TableComponent extends React.Component {
                       </TableCell>
                     ))
                     }
+                    {
+                      actions.map(item => (
+                        <TableCell
+                          key={item.handler}
+                          scope="row"
+                          align={item.align}
+                          value={row.id}
+                        >
+                          {item.icon}
+                        </TableCell>
+                      ))
+                    }
                   </TableRow>
+
                 ))
               }
             </TableBody>
           </Table>
         </Paper>
-      </div>
+      </div >
     );
   }
 }

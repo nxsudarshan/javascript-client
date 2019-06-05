@@ -20,7 +20,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
+import Fab from '@material-ui/core/Fab';
 import { style } from './style';
 
 
@@ -44,6 +44,9 @@ class TableComponent extends React.Component {
     console.log('there is no handler for it');
   }
 
+  handleClick = (row, item) => () => {
+    item.handler(row);
+  }
 
   render() {
     const {
@@ -116,9 +119,15 @@ class TableComponent extends React.Component {
                           key={item.handler}
                           scope="row"
                           align={item.align}
-                          value={row.id}
                         >
-                          {item.icon}
+                          <Fab
+                            size="small"
+                            aria-label={item.name}
+                            title={item.name}
+                            onClick={() => this.handleClick(row, item)}
+                          >
+                            {item.icon}
+                          </Fab>
                         </TableCell>
                       ))
                     }
@@ -129,7 +138,7 @@ class TableComponent extends React.Component {
             </TableBody>
           </Table>
         </Paper>
-      </div >
+      </div>
     );
   }
 }

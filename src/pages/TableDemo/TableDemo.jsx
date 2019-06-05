@@ -1,12 +1,13 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import moment from 'moment';
-import Button from '@material-ui/core/Button';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 
 import { TableComponent } from '../../components';
+import { EditDialog } from '../Trainee/component';
 import { traineeData } from '../Trainee';
 import { dateFormat } from '../../configs/constants';
 
@@ -18,6 +19,7 @@ export class TableDemo extends React.Component {
   state = {
     order: '',
     orderBy: '',
+    open: false,
   }
 
   stringToUpperCase = value => value && value.toUpperCase();
@@ -28,12 +30,30 @@ export class TableDemo extends React.Component {
     this.setState({ ...orderDetails });
   }
 
-  handlerEditDialogOpen = () => {
-
+  editDialog = (row) => {
+    const { open } = this.state;
+    const editDialogOutput = [
+      <EditDialog open={open} handleClose={this.handleCloseDialog} data={row} />,
+    ];
+    return editDialogOutput;
   }
 
-  handlerDeleteDialogOpen = () => {
+  handleCloseDialog = () => {
+    this.setState({
+      open: false,
+    });
+  }
 
+  handlerEditDialogOpen = (row) => {
+    console.log(row);
+    // this.setState({
+    //   open: true,
+    // });
+    // () => this.editDialog(row);
+  }
+
+  handlerDeleteDialogOpen = (row) => {
+    console.log('delete', row);
   }
 
   handleSelect = (e) => {
@@ -71,10 +91,12 @@ export class TableDemo extends React.Component {
         actions={[
           {
             icon: <Edit />,
+            name: 'Edit Operations',
             handler: this.handlerEditDialogOpen,
           },
           {
             icon: <Delete />,
+            name: 'Delete Operations',
             handler: this.handlerDeleteDialogOpen,
           },
         ]}

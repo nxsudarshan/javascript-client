@@ -35,6 +35,7 @@ class TableComponent extends React.Component {
   }
 
   render() {
+    console.log(style);
     const {
       classes,
       data,
@@ -78,7 +79,7 @@ class TableComponent extends React.Component {
 
               {
                 data.map(row => (
-                  <TableRow key={row.id}>
+                  <TableRow key={row.id} className={classes.alternateRow}>
                     {columns.map(items => (
                       <TableCell
                         scope="row"

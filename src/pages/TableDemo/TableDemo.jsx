@@ -1,3 +1,5 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-indent */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable react/prefer-stateless-function */
@@ -7,19 +9,21 @@ import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 
 import { TableComponent } from '../../components';
-import { EditDialog } from '../Trainee/component';
+import { EditDialog, RemoveDialog } from '../Trainee/component';
 import { traineeData } from '../Trainee';
 import { dateFormat } from '../../configs/constants';
 
 export class TableDemo extends React.Component {
   page = 0;
 
-  count = 100;
+  count = 10;
 
   state = {
     order: '',
     orderBy: '',
+    editDialog: false,
     open: false,
+    deleteDialog: false,
   }
 
   stringToUpperCase = value => value && value.toUpperCase();
@@ -30,80 +34,111 @@ export class TableDemo extends React.Component {
     this.setState({ ...orderDetails });
   }
 
-  editDialog = (row) => {
-    const { open } = this.state;
-    const editDialogOutput = [
-      <EditDialog open={open} handleClose={this.handleCloseDialog} data={row} />,
-    ];
-    return editDialogOutput;
-  }
-
   handleCloseDialog = () => {
     this.setState({
       open: false,
+      deleteDialog: false,
+      editDialog: false,
     });
   }
 
+  handleSubmitDialog = (value) => {
+    console.log('Edited Item-->', value);
+  }
+
   handlerEditDialogOpen = (row) => {
-    console.log(row);
-    // this.setState({
-    //   open: true,
-    // });
-    // () => this.editDialog(row);
+    this.setState({
+      editDialog: true,
+      row,
+    });
   }
 
   handlerDeleteDialogOpen = (row) => {
-    console.log('delete', row);
+    this.setState({
+      deleteDialog: true,
+      row,
+    });
   }
 
   handleSelect = (e) => {
     console.log(e);
   }
 
+  handleDeleteDialog = (value) => {
+    console.log('Deleted Item-->', [value.name, value.email]);
+  }
+
   render() {
-    const { order, orderBy } = this.state;
+    const {
+      order,
+      orderBy,
+      deleteDialog,
+      editDialog,
+      row,
+    } = this.state;
     return (
-      <TableComponent
-        id="id"
-        columns={[
-          {
-            field: 'name',
-            label: 'Name',
-            align: 'center',
-          },
-          {
-            field: 'email',
-            label: 'Email Address',
-            format: this.stringToUpperCase,
-          },
-          {
-            field: 'createdAt',
-            label: 'Date',
-            format: this.getFormattedDate,
-            align: 'right',
-          },
-        ]}
-        data={traineeData}
-        order={order}
-        orderBy={orderBy}
-        onSort={this.handleChange}
-        onSelect={this.handleSelect}
-        actions={[
-          {
-            icon: <Edit />,
-            name: 'Edit Operations',
-            handler: this.handlerEditDialogOpen,
-          },
-          {
-            icon: <Delete />,
-            name: 'Delete Operations',
-            handler: this.handlerDeleteDialogOpen,
-          },
-        ]}
-        count={this.count}
-        page={this.page}
-        onChangePage={this.handleChangePage}
-      />
+      <>
+        <TableComponent
+          id="id"
+          columns={[
+            {
+              field: 'name',
+              label: 'Name',
+              align: 'center',
+            },
+            {
+              field: 'email',
+              label: 'Email Address',
+              format: this.stringToUpperCase,
+            },
+            {
+              field: 'createdAt',
+              label: 'Date',
+              format: this.getFormattedDate,
+              align: 'right',
+            },
+          ]}
+          data={traineeData}
+          order={order}
+          orderBy={orderBy}
+          onSort={this.handleChange}
+          onSelect={this.handleSelect}
+          actions={[
+            {
+              icon: <Edit />,
+              name: 'Edit Operations',
+              handler: this.handlerEditDialogOpen,
+            },
+            {
+              icon: <Delete />,
+              name: 'Delete Operations',
+              handler: this.handlerDeleteDialogOpen,
+            },
+          ]}
+          count={this.count}
+          page={this.page}
+          onChangePage={this.handleChangePage}
+        />
+        {editDialog && (
+          <EditDialog
+            open={editDialog}
+            handleClose={this.handleCloseDialog}
+            data={row}
+            handleSubmit={this.handleSubmitDialog}
+          />
+        )
+        }
+        {deleteDialog
+          && (
+            <RemoveDialog
+              open={deleteDialog}
+              handleClose={this.handleCloseDialog}
+              data={row}
+              handleDelete={this.handleDeleteDialog}
+            />
+          )
+        }
+      </>
     );
   }
 }

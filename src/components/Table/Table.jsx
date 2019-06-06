@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-sequences */
@@ -21,10 +22,32 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
-import { style } from './style';
+import TablePagination from '@material-ui/core/TablePagination';
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Switch,
+} from 'react-router-dom';
 
+import { style } from './style';
+import { TraineeDetail } from '../../pages';
 
 class TableComponent extends React.Component {
+  state = {
+    page: '',
+    count: '',
+  };
+
+  constructor(props) {
+    super(props);
+    const { page, count } = props;
+    this.state = ({
+      page,
+      count,
+    });
+  }
+
   createSortHandler = field => (event) => {
     const { onSort, order } = this.props;
     const ord = order === 'asc' ? 'desc' : 'asc';
@@ -44,10 +67,6 @@ class TableComponent extends React.Component {
     console.log('there is no handler for it');
   }
 
-  handleClick = (row, item) => () => {
-    item.handler(row);
-  }
-
   render() {
     const {
       classes,
@@ -61,6 +80,7 @@ class TableComponent extends React.Component {
       count,
       page,
     } = this.props;
+    console.log(this.props);
     return (
       <div className={classes.root}>
         <Paper className={classes.paper}>
@@ -89,7 +109,7 @@ class TableComponent extends React.Component {
                   ))
                 }
                 <TableCell
-                  key=""
+                  key="operations"
                   align=""
                   title=""
                 />
@@ -106,10 +126,12 @@ class TableComponent extends React.Component {
                         scope="row"
                         align={items.align}
                       >
-                        {(items.format
-                          ? items.format(row[items.field])
-                          : row[items.field])
-                        }
+                        <Link to={`/trainee/${row.id}`} className={classes.link}>
+                          {(items.format
+                            ? items.format(row[items.field])
+                            : row[items.field])
+                          }
+                        </Link>
                       </TableCell>
                     ))
                     }
@@ -124,7 +146,7 @@ class TableComponent extends React.Component {
                             size="small"
                             aria-label={item.name}
                             title={item.name}
-                            onClick={() => this.handleClick(row, item)}
+                            onClick={() => item.handler(row)}
                           >
                             {item.icon}
                           </Fab>
@@ -137,9 +159,37 @@ class TableComponent extends React.Component {
               }
             </TableBody>
           </Table>
+          <TablePagination
+            component="div"
+            count={50}
+            rowsPerPage={this.state.count}
+            page={this.state.page}
+            backIconButtonProps={{
+              'aria-label': 'Previous Page',
+            }}
+            nextIconButtonProps={{
+              'aria-label': 'Next Page',
+            }}
+            onChangePage={this.handleChangePage}
+            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+          />
         </Paper>
       </div>
     );
+  }
+
+  handleChangePage = (event, page) => {
+    console.log(page);
+    // const { page, count } = this.state;
+    this.setState({
+      page,
+    });
+  }
+
+  handleChangeRowsPerPage = (event) => {
+    this.setState({
+      count: event.target.value,
+    });
   }
 }
 

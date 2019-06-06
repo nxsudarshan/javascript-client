@@ -14,6 +14,7 @@ export const style = {
   table: {
     minWidth: 400,
     align: 'center',
+
   },
   alternateRow: {
     '&:nth-of-type(odd)': {
@@ -24,5 +25,9 @@ export const style = {
     '&:hover': {
       cursor: 'pointer',
     },
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'black',
   },
 };

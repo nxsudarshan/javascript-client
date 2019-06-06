@@ -1,1 +1,1 @@
-export { EditDialog } from './EditDialog';
+export {default as EditDialog } from './EditDialog';

@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import LockOutlined from '@material-ui/icons/LockOutlined';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
@@ -46,21 +47,49 @@ const styles = ({
     padding: 10,
   },
   root: {
-    color: '#FFFFFF',
-    backgroundColor: '#FC0043',
-  },
-  bigButton: {
-    marginTop: 30,
-    height: 30,
+    margin: 40,
+    display: 'flex',
+    alignItems: 'center',
+    flexDirections: 'column',
   },
   input: {
     margin: 10,
+    padding: 10,
+  },
+  inputMargin: {
+    margin: 20,
   },
   errorStyle: {
     color: '#FF0303',
   },
   iconSize: {
     width: 5,
+  },
+  paper: {
+    padding: 2,
+    margin: 'auto',
+    maxWidth: 400,
+  },
+  image: {
+    width: 128,
+    height: 128,
+  },
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
+  },
+  avatarColor: {
+    padding: 2,
+    margin: 'auto',
+    color: 'white',
+    background: 'red',
+  },
+  header: {
+    margin: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 class Login extends React.Component {
@@ -166,7 +195,7 @@ class Login extends React.Component {
     const loginOutput = [
       <>
         <form>
-          <Grid container justify="center">
+          {/* <Grid container justify="center">
             <Grid item xs={6}>
               <Paper>
                 <Box>
@@ -267,7 +296,114 @@ class Login extends React.Component {
                 </Box>
               </Paper>
             </Grid>
-          </Grid>
+          </Grid> */}
+          <div className={classes.paper}>
+            <Paper className={classes.root}>
+              <Grid>
+                <Grid item>
+                  <Box>
+                    <Box m={4}>
+                      <Grid item>
+                        <Avatar className={classes.avatarColor}>
+                          <LockOutlined />
+                        </Avatar>
+                      </Grid>
+                      <Grid item className={classes.header}>
+                        <Typography variant="h5">
+                          Login
+                        </Typography>
+                      </Grid>
+                    </Box>
+                  </Box>
+                </Grid>
+                <Grid item sm container>
+                  <Grid item xs className={classes.input}>
+                    <Grid item className={classes.inputMargin}>
+                      <FormControl fullWidth>
+                        <TextField
+                          name="email"
+                          id="outlined-name"
+                          label="Email Address"
+                          // className={classes.textField}
+                          variant="outlined"
+                          onChange={this.getTextField}
+                          onBlur={this.onBlurHandler}
+                          onFocus={() => this.onFocusHandler('email')}
+                          error={isError.email}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <Mail />
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                        {isError.email ? (
+                          <FormHelperText
+                            id="email-helper-text"
+                            className={classes.errorStyle}
+                          >
+                            {this.getError('email')}
+                          </FormHelperText>
+                        ) : ''}
+                      </FormControl>
+                    </Grid>
+                    <Grid item className={classes.inputMargin}>
+                      <FormControl fullWidth>
+                        <TextField
+                          name="password"
+                          id="outlined-password"
+                          label="Password"
+                          // className={classes.textField}
+                          variant="outlined"
+                          type={showPassword ? 'text' : 'password'}
+                          values={password}
+                          onChange={this.getTextField}
+                          onBlur={this.onBlurHandler}
+                          onFocus={() => this.onFocusHandler('password')}
+                          error={isError.password}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <IconButton
+                                  className={classes.iconSize}
+                                  aria-label="Toggle password visibility"
+                                  onClick={this.handleClickShowPassword}
+                                >
+                                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                        {isError.password ? (
+                          <FormHelperText
+                            id="password-helper-text"
+                            className={classes.errorStyle}
+                          >
+                            {this.getError('password')}
+                          </FormHelperText>
+                        ) : ''}
+                      </FormControl>
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.bigButton}
+                        disabled={this.buttonDisabled()}
+                        type="reset"
+                      >
+                        Sign in
+                      </Button>
+                    </Grid>
+                  </Grid>
+
+                </Grid>
+              </Grid>
+            </Paper>
+          </div>
         </form>
       </>,
     ];

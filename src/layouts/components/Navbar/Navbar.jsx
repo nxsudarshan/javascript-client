@@ -81,12 +81,10 @@ class Navbar extends React.Component {
             </Toolbar>
           </AppBar>
           <div className={classes.main}>
-            <Switch>
-              <Route exact path="/" component={Trainee} />
-              <Route path="/children-demo" component={ChildrenDemo} />
-              <Route path="/textField-demo" component={TextFieldDemo} />
-              <Route path="/input-demo" component={InputDemo} />
-            </Switch>
+            <Route exact path="/" component={Trainee} />
+            <Route path="/children-demo" component={ChildrenDemo} />
+            <Route path="/textField-demo" component={TextFieldDemo} />
+            <Route path="/input-demo" component={InputDemo} />
           </div>
         </BrowserRouter>
       </div>,

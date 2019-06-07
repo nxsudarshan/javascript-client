@@ -2,9 +2,11 @@
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { TextField } from '../../components';
+import { SliderDemo } from '../index';
 
 export const TextFieldDemo = () => (
   <>
+    <SliderDemo />
     <p style={textStyle}>This is a Disabled Input</p>
     <TextField type="text" value="This is a Disabled Input" error={false} disabled />
     <p style={textStyle}>A Valid Input</p>

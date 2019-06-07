@@ -8,13 +8,13 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
 import {
   BrowserRouter,
   Route,
   Link,
   Switch,
 } from 'react-router-dom';
+
 import {
   Trainee,
   ChildrenDemo,
@@ -98,9 +98,5 @@ class Navbar extends React.Component {
     return navbarOutput;
   }
 }
-
-Navbar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(useStyles)(Navbar);

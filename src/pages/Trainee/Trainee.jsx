@@ -4,16 +4,9 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-  Link,
-} from 'react-router-dom';
 
 import { AddDialog } from './component';
 import { default as TraineeList } from './TraineeList';
-import { NoMatch } from '../index';
 
 export class Trainee extends React.Component {
   state = {

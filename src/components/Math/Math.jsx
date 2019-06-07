@@ -1,36 +1,31 @@
-/* eslint-disable indent */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-return-assign */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
-/* eslint-disable no-console */
+/* eslint-disable class-methods-use-this */
 import React from 'react';
 
 export class Math extends React.Component {
   // eslint-disable-next-line consistent-return
   calculation(first, second, operator) {
     switch (operator) {
-      case '+':
-        return Number(first) + Number(second);
+    case '+':
+      return Number(first) + Number(second);
 
-      case '-':
-        return Number(first) - Number(second);
+    case '-':
+      return Number(first) - Number(second);
 
-      case '*':
-        return Number(first) * Number(second);
+    case '*':
+      return Number(first) * Number(second);
 
-      case '/':
-        return Number(second !== 0)
-          ? Number(first)
+    case '/':
+      return Number(second !== 0)
+        ? Number(first)
           / Number(second)
-          : 'infinity';
+        : 'infinity';
 
-      case '^':
-        return ('Invalid Operations');
+    case '^':
+      return ('Invalid Operations');
 
-      default:
-        return ('Invalid Operator');
+    default:
+      return ('Invalid Operator');
     }
   }
 

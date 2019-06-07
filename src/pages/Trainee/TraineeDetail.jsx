@@ -59,10 +59,8 @@ class TraineeDetail extends React.Component {
 
   render() {
     const { match, classes } = this.props;
-    console.log(this.props);
     const { params } = match;
     const getRow = traineeData.filter(row => row.id === params.id);
-    console.log(getRow);
     const traineeDetailOutput = [
       <Card className={classes.card}>
         <CardMedia

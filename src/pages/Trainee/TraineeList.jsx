@@ -40,6 +40,4 @@ class TraineeList extends React.Component {
     return (traineeListOutput);
   }
 }
-
-
 export default withStyles(listStyle)(TraineeList);

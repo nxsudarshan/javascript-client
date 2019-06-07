@@ -1,1 +1,1 @@
-export { NoMatch } from './NoMatch';
+export { default as NoMatch } from './NoMatch';

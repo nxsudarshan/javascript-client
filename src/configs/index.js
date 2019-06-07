@@ -1,0 +1,1 @@
+export { inputDemoSchema } from './inputDemoSchema';

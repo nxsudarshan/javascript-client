@@ -13,6 +13,7 @@ import {
   Route,
   Link,
   Switch,
+  Redirect,
 } from 'react-router-dom';
 
 import {
@@ -84,11 +85,14 @@ class Navbar extends React.Component {
           </AppBar>
           <div className={classes.main}>
             <Switch>
-              <Route exact path="/" component={Trainee} />
+              <Route exact path="/trainee" component={Trainee} />
               <Route path="/children-demo" component={ChildrenDemo} />
               <Route path="/textField-demo" component={TextFieldDemo} />
               <Route path="/input-demo" component={InputDemo} />
               <Route path="/trainee/:id" component={TraineeDetail} />
+              <Route exact path="/">
+                <Redirect to="/trainee" />
+              </Route>
               <Route component={NoMatch} />
             </Switch>
           </div>

@@ -50,7 +50,7 @@ const styles = ({
     margin: 40,
     display: 'flex',
     alignItems: 'center',
-    flexDirections: 'column',
+    flexDirection: 'column',
   },
   input: {
     margin: 10,
@@ -69,6 +69,7 @@ const styles = ({
     padding: 2,
     margin: 'auto',
     maxWidth: 400,
+    display: 'flex',
   },
   image: {
     width: 128,
@@ -195,108 +196,6 @@ class Login extends React.Component {
     const loginOutput = [
       <>
         <form>
-          {/* <Grid container justify="center">
-            <Grid item xs={6}>
-              <Paper>
-                <Box>
-                  <Box m={2}>
-                    <Avatar className={classes.root}><LockOutlined /></Avatar>
-                  </Box>
-                </Box>
-                <Box justifyContent="center">
-                  <Box>
-                    <Typography variant="h5" component="h1">
-                      Login
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box m={2} p={1}>
-                  <Grid container justify="center" spacing={1}>
-                    <Grid item xs={12}>
-                      <FormControl fullWidth>
-                        <TextField
-                          name="email"
-                          id="outlined-name"
-                          label="Email Address"
-                          // className={classes.textField}
-                          variant="outlined"
-                          onChange={this.getTextField}
-                          onBlur={this.onBlurHandler}
-                          onFocus={() => this.onFocusHandler('email')}
-                          error={isError.email}
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <Mail />
-                              </InputAdornment>
-                            ),
-                          }}
-                        />
-                        {isError.email ? (
-                          <FormHelperText
-                            id="email-helper-text"
-                            className={classes.errorStyle}
-                          >
-                            {this.getError('email')}
-                          </FormHelperText>
-                        ) : ''}
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <FormControl fullWidth style={this.style}>
-                        <TextField
-                          name="password"
-                          id="outlined-password"
-                          label="Password"
-                          // className={classes.textField}
-                          variant="outlined"
-                          type={showPassword ? 'text' : 'password'}
-                          values={password}
-                          onChange={this.getTextField}
-                          onBlur={this.onBlurHandler}
-                          onFocus={() => this.onFocusHandler('password')}
-                          error={isError.password}
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <IconButton
-                                  className={classes.iconSize}
-                                  aria-label="Toggle password visibility"
-                                  onClick={this.handleClickShowPassword}
-                                >
-                                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                                </IconButton>
-                              </InputAdornment>
-                            ),
-                          }}
-                        />
-                        {isError.password ? (
-                          <FormHelperText
-                            id="password-helper-text"
-                            className={classes.errorStyle}
-                          >
-                            {this.getError('password')}
-                          </FormHelperText>
-                        ) : ''}
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                        className={classes.bigButton}
-                        disabled={this.buttonDisabled()}
-                        type="reset"
-                      >
-                        Sign in
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </Box>
-              </Paper>
-            </Grid>
-          </Grid> */}
           <div className={classes.paper}>
             <Paper className={classes.root}>
               <Grid>

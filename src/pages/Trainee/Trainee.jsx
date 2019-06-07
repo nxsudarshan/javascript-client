@@ -58,7 +58,6 @@ class Trainee extends React.Component {
           onClose={this.handleClickClose}
           onSubmit={this.onSubmit}
         />
-
       </>,
     ];
     return result;

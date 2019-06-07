@@ -12,6 +12,9 @@ import { TableComponent } from '../../components';
 import { EditDialog, RemoveDialog } from '../Trainee/component';
 import { traineeData } from '../Trainee';
 import { dateFormat } from '../../configs/constants';
+import { SnackBarConsumer } from '../../contexts/SnackBarProvider/SnackBarProvider';
+
+const requiredDate="2019-02-10T18:15:11.778Z";
 
 export class TableDemo extends React.Component {
   page = 0;
@@ -30,6 +33,8 @@ export class TableDemo extends React.Component {
 
   getFormattedDate = date => moment(date).format(dateFormat);
 
+  dataIsAfter=date=>moment(date).format('Do MMM YYYY');
+
   handleChange = (orderDetails) => {
     this.setState({ ...orderDetails });
   }
@@ -39,10 +44,13 @@ export class TableDemo extends React.Component {
       open: false,
       deleteDialog: false,
       editDialog: false,
+      submitDialog: false,
     });
   }
 
   handleSubmitDialog = (value) => {
+    const {openSnackBar}=this.context;
+    openSnackBar('Trainee data successfully stored','success');
     console.log('Edited Item-->', value);
   }
 
@@ -61,6 +69,21 @@ export class TableDemo extends React.Component {
   }
 
   handleDeleteDialog = (value) => {
+    const date=this.dataIsAfter(value.createdAt);
+    console.log(requiredDate);
+    const isAfter=moment(date, 'Do MMM YYYY').isAfter(requiredDate);
+    console.log(date,requiredDate);
+    const {openSnackBar}=this.context;
+    if(isAfter)
+    {
+      openSnackBar('Record Delete successfully','success');
+    }
+    else
+    {
+openSnackBar('Error Record cannot delete due to date','error');
+    }
+    
+  
     console.log('Deleted Item-->', [value.name, value.email]);
   }
 
@@ -138,3 +161,5 @@ export class TableDemo extends React.Component {
     );
   }
 }
+
+TableDemo.contextType = SnackBarConsumer;

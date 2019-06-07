@@ -18,7 +18,7 @@ export const style = {
   },
   alternateRow: {
     '&:nth-of-type(odd)': {
-      background: '#FFFFFF',
+      background: '#f1f8ff',
     },
   },
   rowHover: {

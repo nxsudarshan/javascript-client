@@ -60,10 +60,6 @@ export class TableDemo extends React.Component {
     });
   }
 
-  handleSelect = (e) => {
-    console.log(e);
-  }
-
   handleDeleteDialog = (value) => {
     console.log('Deleted Item-->', [value.name, value.email]);
   }

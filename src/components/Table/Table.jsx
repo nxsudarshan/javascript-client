@@ -80,7 +80,6 @@ class TableComponent extends React.Component {
       count,
       page,
     } = this.props;
-    console.log(this.props);
     return (
       <div className={classes.root}>
         <Paper className={classes.paper}>
@@ -119,21 +118,22 @@ class TableComponent extends React.Component {
               {
                 data.map(row => (
                   <TableRow className={classes.alternateRow} hover>
-                    {columns.map(items => (
-                      <TableCell
-                        className={classes.rowHover}
-                        key={row[items.field]}
-                        scope="row"
-                        align={items.align}
-                      >
-                        <Link to={`/trainee/${row.id}`} className={classes.link}>
-                          {(items.format
-                            ? items.format(row[items.field])
-                            : row[items.field])
-                          }
-                        </Link>
-                      </TableCell>
-                    ))
+                    {
+                      columns.map(items => (
+                        <TableCell
+                          className={classes.rowHover}
+                          key={row[items.field]}
+                          scope="row"
+                          align={items.align}
+                        >
+                          <Link to={`/trainee/${row.id}`} className={classes.link}>
+                            {(items.format
+                              ? items.format(row[items.field])
+                              : row[items.field])
+                            }
+                          </Link>
+                        </TableCell>
+                      ))
                     }
                     {
                       actions.map(item => (
@@ -179,7 +179,6 @@ class TableComponent extends React.Component {
   }
 
   handleChangePage = (event, page) => {
-    console.log(page);
     // const { page, count } = this.state;
     this.setState({
       page,

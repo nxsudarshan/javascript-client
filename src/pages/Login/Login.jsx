@@ -1,3 +1,7 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-dupe-keys */
+/* eslint-disable no-obj-calls */
+/* eslint-disable import/no-named-default */
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
@@ -25,9 +29,14 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Mail from '@material-ui/icons/Mail';
 import Visibility from '@material-ui/icons/Visibility';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import * as yup from 'yup';
+
+import { configenv } from '../../configs/environment';
+import { default as Api } from '../../lib/utils/api';
+import { SnackBarConsumer } from '../../contexts/SnackBarProvider/SnackBarProvider';
 
 const loginSchema = yup.object().shape({
   email: yup.string()
@@ -70,12 +79,35 @@ class Login extends React.Component {
     email: '',
     password: '',
     showPassword: false,
+    loginSuccess:false,
+    buttonDisabled: false,
   };
+
 
   getTextField = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     }, this.validate);
+  }
+
+  handleSubmit = () => {
+    const { email, password } = this.state;
+    const { openSnackBar } = this.context;
+    this.setState({
+      buttonDisabled: true,
+    });
+
+    Api({ email, password })
+      .then((res) => {
+        const { data } = res;
+        this.setState({ buttonDisabled: false,loginSuccess:true, });
+        openSnackBar(data.status, 'success');
+      })
+      .catch((err) => {
+        const { data } = err.response;
+        this.setState({ data: {}, buttonDisabled: false });
+        openSnackBar(data.message, 'error');
+      });
   }
 
   validate = () => {
@@ -122,110 +154,121 @@ class Login extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { password, showPassword } = this.state;
+    const { password, showPassword, data } = this.state;
     const loginOutput = [
       <>
-        <form>
-          <Grid className={classes.primary} container justify="center">
-            <Grid item xs={3}>
-              <Paper>
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <Box m={2}>
-                    <Avatar className={classes.root}><LockOutlined /></Avatar>
-                  </Box>
+        <Grid className={classes.primary} container justify="center">
+          <Grid item xs={3}>
+            <Paper>
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <Box m={2}>
+                  <Avatar className={classes.root}><LockOutlined /></Avatar>
                 </Box>
-                <Box display="flex" justifyContent="center">
-                  <Box>
-                    <Typography variant="h5" component="h1">
-                      Login
-                    </Typography>
-                  </Box>
+              </Box>
+              <Box display="flex" justifyContent="center">
+                <Box>
+                  <Typography variant="h5" component="h1">
+                    Login
+                  </Typography>
                 </Box>
-                <Box display="flex" justifyContent="center" m={2} p={1}>
-                  <Grid container justify="center" spacing={1}>
-                    <Grid item xs={12}>
-                      <FormControl fullWidth style={this.style}>
-                        <TextField
-                          name="email"
-                          id="outlined-name"
-                          label="Email Address"
-                          // className={classes.textField}
-                          variant="outlined"
-                          onChange={this.getTextField}
-                          onFocus={this.getTextField}
-                          error={this.setError('email')}
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <Mail />
-                              </InputAdornment>
-                            ),
-                          }}
-                        />
-                        <FormHelperText
-                          id="email-helper-text"
-                          className={classes.errorStyle}
-                        >
-                          {this.getError('email')}
-                        </FormHelperText>
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <FormControl fullWidth style={this.style}>
-                        <TextField
-                          name="password"
-                          id="outlined-password"
-                          label="Password"
-                          // className={classes.textField}
-                          variant="outlined"
-                          onFocus={this.getTextField}
-                          type={showPassword ? 'text' : 'password'}
-                          values={password}
-                          onChange={this.getTextField}
-                          error={this.setError('password')}
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <IconButton
-                                  className={classes.iconSize}
-                                  aria-label="Toggle password visibility"
-                                  onClick={this.handleClickShowPassword}
-                                >
-                                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                                </IconButton>
-                              </InputAdornment>
-                            ),
-                          }}
-                        />
-                        <FormHelperText id="password-helper-text" className={classes.errorStyle}>{this.getError('password')}</FormHelperText>
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                        className={classes.bigButton}
-                        disabled={this.buttonDisabled()}
-                        type="reset"
+              </Box>
+              <Box display="flex" justifyContent="center" m={2} p={1}>
+                <Grid container justify="center" spacing={1}>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth style={this.style}>
+                      <TextField
+                        name="email"
+                        id="outlined-name"
+                        label="Email Address"
+                        // className={classes.textField}
+                        variant="outlined"
+                        onChange={this.getTextField}
+                        onFocus={this.getTextField}
+                        error={this.setError('email')}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Mail />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                      <FormHelperText
+                        id="email-helper-text"
+                        className={classes.errorStyle}
                       >
-                        Sign in
-                      </Button>
-                    </Grid>
+                        {this.getError('email')}
+                      </FormHelperText>
+                    </FormControl>
                   </Grid>
-                </Box>
-              </Paper>
-            </Grid>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth style={this.style}>
+                      <TextField
+                        name="password"
+                        id="outlined-password"
+                        label="Password"
+                        // className={classes.textField}
+                        variant="outlined"
+                        onFocus={this.getTextField}
+                        type={showPassword ? 'text' : 'password'}
+                        values={password}
+                        onChange={this.getTextField}
+
+                        error={this.setError('password')}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <IconButton
+                                className={classes.iconSize}
+                                aria-label="Toggle password visibility"
+                                onClick={this.handleClickShowPassword}
+                              >
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                      <FormHelperText id="password-helper-text" className={classes.errorStyle}>{this.getError('password')}</FormHelperText>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      fullWidth
+                      className={classes.bigButton}
+                      disabled={this.buttonDisabled() || this.state.buttonDisabled}
+                      onClick={this.handleSubmit}
+                      type="submit"
+                    >
+                      {
+                        this.state.buttonDisabled
+                          ? (
+                            <>
+                              <CircularProgress
+                                variant="indeterminate"
+                                disableShrink
+                                size={24}
+                                thickness={4}
+                              />
+                              <span style={{ marginLeft: 5 }}>Loading...</span>
+                            </>
+                          ) : <span>Submit</span>
+                      }
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Paper>
           </Grid>
-        </form>
+        </Grid>
       </>,
     ];
     return loginOutput;
   }
 }
 
-Login.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+Login.contextType = SnackBarConsumer;
 
 export default withStyles(styles)(Login);

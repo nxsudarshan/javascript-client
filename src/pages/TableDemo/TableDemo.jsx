@@ -14,7 +14,7 @@ import { traineeData } from '../Trainee';
 import { dateFormat } from '../../configs/constants';
 import { SnackBarConsumer } from '../../contexts/SnackBarProvider/SnackBarProvider';
 
-const requiredDate="2019-02-10T18:15:11.778Z";
+const requiredDate = '2019-02-14';
 
 export class TableDemo extends React.Component {
   page = 0;
@@ -33,7 +33,7 @@ export class TableDemo extends React.Component {
 
   getFormattedDate = date => moment(date).format(dateFormat);
 
-  dataIsAfter=date=>moment(date).format('Do MMM YYYY');
+  dataIsAfter = date => moment(date).format('YYYY-MM-DD');
 
   handleChange = (orderDetails) => {
     this.setState({ ...orderDetails });
@@ -49,8 +49,8 @@ export class TableDemo extends React.Component {
   }
 
   handleSubmitDialog = (value) => {
-    const {openSnackBar}=this.context;
-    openSnackBar('Trainee data successfully stored','success');
+    const { openSnackBar } = this.context;
+    openSnackBar('Trainee data successfully stored', 'success');
     console.log('Edited Item-->', value);
   }
 
@@ -69,22 +69,15 @@ export class TableDemo extends React.Component {
   }
 
   handleDeleteDialog = (value) => {
-    const date=this.dataIsAfter(value.createdAt);
-    console.log(requiredDate);
-    const isAfter=moment(date, 'Do MMM YYYY').isAfter(requiredDate);
-    console.log(date,requiredDate);
-    const {openSnackBar}=this.context;
-    if(isAfter)
-    {
-      openSnackBar('Record Delete successfully','success');
+    const date = this.dataIsAfter(value.createdAt);
+    const isAfter = moment(date).isAfter(requiredDate);
+    const { openSnackBar } = this.context;
+    if (isAfter) {
+      openSnackBar('Record Delete successfully', 'success');
+      console.log('Deleted Item-->', [value.name, value.email]);
+    } else {
+      openSnackBar('Error Record cannot delete due to date', 'error');
     }
-    else
-    {
-openSnackBar('Error Record cannot delete due to date','error');
-    }
-    
-  
-    console.log('Deleted Item-->', [value.name, value.email]);
   }
 
   render() {

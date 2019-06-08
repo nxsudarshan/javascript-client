@@ -27,6 +27,7 @@ export const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
   },
   message: {
+    margin:'auto',
     display: 'flex',
     alignItems: 'center',
   },

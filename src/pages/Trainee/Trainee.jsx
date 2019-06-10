@@ -1,9 +1,12 @@
+/* eslint-disable import/no-named-default */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-unused-state */
 import React from 'react';
 import Button from '@material-ui/core/Button';
+
 import { AddDialog } from './component';
+import { default as TraineeList } from './TraineeList';
 
 export class Trainee extends React.Component {
   state = {
@@ -28,8 +31,9 @@ export class Trainee extends React.Component {
     const result = [
       <>
         <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-          Add Trainee
+          Add TraineeList
         </Button>
+        <TraineeList />
         <AddDialog
           open={this.state.open}
           onClose={this.handleClickClose}

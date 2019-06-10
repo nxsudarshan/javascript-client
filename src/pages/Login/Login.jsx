@@ -97,24 +97,32 @@ class Login extends React.Component {
     }, this.validate);
   }
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     const { email, password } = this.state;
     const { openSnackBar } = this.context;
     this.setState({
       buttonDisabled: true,
     });
+    console.log(this.props);
+    try {
+      const res = await Api({ email, password });
+      console.log(res);
+      const { data } = res;
+      this.setState({ buttonDisabled: false, loginSuccess: true });
+      openSnackBar(data.status, 'success');
+      this.props.history.push('/trainee');
+    } catch (err) {
+      const { data } = err.response;
+      this.setState({ data: {}, buttonDisabled: false, loginSuccess: false });
+      openSnackBar('Opps! email and password might be incorrect\n please enter valid email and password', 'error');
+    }
+    // Api({ email, password })
+    //   .then((res) => {
 
-    Api({ email, password })
-      .then((res) => {
-        const { data } = res;
-        this.setState({ buttonDisabled: false, loginSuccess: true });
-        openSnackBar(data.status, 'success');
-      })
-      .catch((err) => {
-        const { data } = err.response;
-        this.setState({ data: {}, buttonDisabled: false, loginSuccess: false });
-        openSnackBar('Opps! email and password might be incorrect\n please enter valid email and password', 'error');
-      });
+    //   })
+    //   .catch((err) => {
+
+    //   });
   }
 
   validate = () => {

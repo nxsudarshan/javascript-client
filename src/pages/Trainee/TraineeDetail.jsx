@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable react/jsx-indent */
 /* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/no-unused-prop-types */
@@ -18,10 +20,8 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import {
-  BrowserRouter,
   Link,
-  Switch,
-  Route,
+  Redirect,
 } from 'react-router-dom';
 
 import { default as traineeData } from './Data/trainee';
@@ -61,6 +61,13 @@ class TraineeDetail extends React.Component {
     const { match, classes } = this.props;
     const { params } = match;
     const getRow = traineeData.filter(row => row.id === params.id);
+    const id = getRow.map(row => row.id);
+    if (id.toString() !== params.id) {
+      const output = [
+        <Redirect to="/notFound" />,
+      ];
+      return output;
+    }
     const traineeDetailOutput = [
       <Card className={classes.card}>
         <CardMedia
@@ -75,7 +82,7 @@ class TraineeDetail extends React.Component {
               {getRow.map(item => item.name)}
             </Typography>
             <Typography variant="h6" gutterBottom className={classes.date}>
-              {this.getDateFormatted(getRow.map(item => item.createdAt))}
+              {this.getDateFormatted(getRow.map(item => item.createdAt).toString())}
             </Typography>
             <Typography variant="h5" gutterBottom>
               {getRow.map(item => item.email)}

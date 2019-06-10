@@ -7,3 +7,4 @@ export { NoMatch } from './NoMatch';
 export { TraineeDetail } from './Trainee';
 export { TableDemo } from './TableDemo';
 export { InputDemo } from './InputDemo';
+export { NotFound } from './NotFound';

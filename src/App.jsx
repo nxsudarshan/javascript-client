@@ -14,6 +14,7 @@ import {
   TextFieldDemo,
   InputDemo,
   NoMatch,
+  NotFound,
 } from './pages';
 import { AuthRoute, PrivateRoute } from './routes';
 // import { Login } from './pages';
@@ -29,6 +30,7 @@ export default function App() {
           <PrivateRoute path="/textField-demo" component={TextFieldDemo} />
           <PrivateRoute path="/input-demo" component={InputDemo} />
           <PrivateRoute path="/trainee/:id" component={TraineeDetail} />
+          <PrivateRoute path="/notFound" component={NotFound} />
           <Redirect to="/trainee" />
           <PrivateRoute component={NoMatch} />
         </Switch>

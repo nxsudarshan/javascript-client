@@ -33,6 +33,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import * as yup from 'yup';
+import {
+  BrowserRouter,
+  Route,
+  Link,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 
 import { configenv } from '../../configs/environment';
 import { default as Api } from '../../lib/utils/api';
@@ -79,7 +86,7 @@ class Login extends React.Component {
     email: '',
     password: '',
     showPassword: false,
-    loginSuccess:false,
+    loginSuccess: false,
     buttonDisabled: false,
   };
 
@@ -100,13 +107,13 @@ class Login extends React.Component {
     Api({ email, password })
       .then((res) => {
         const { data } = res;
-        this.setState({ buttonDisabled: false,loginSuccess:true, });
+        this.setState({ buttonDisabled: false, loginSuccess: true });
         openSnackBar(data.status, 'success');
       })
       .catch((err) => {
         const { data } = err.response;
-        this.setState({ data: {}, buttonDisabled: false });
-        openSnackBar(data.message, 'error');
+        this.setState({ data: {}, buttonDisabled: false, loginSuccess: false });
+        openSnackBar('Opps! email and password might be incorrect\n please enter valid email and password', 'error');
       });
   }
 
@@ -154,7 +161,7 @@ class Login extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { password, showPassword, data } = this.state;
+    const { password, showPassword, loginSuccess } = this.state;
     const loginOutput = [
       <>
         <Grid className={classes.primary} container justify="center">

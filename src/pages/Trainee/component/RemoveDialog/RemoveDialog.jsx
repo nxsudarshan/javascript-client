@@ -15,6 +15,8 @@ export class RemoveDialog extends React.Component {
     if (window.confirm('Are you sure you want to delete the selected trainee') === true) {
       handleDelete(data);
       handleClose();
+    } else {
+      handleClose();
     }
   }
 

@@ -15,7 +15,7 @@ export default function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/login" component={AuthRoute} />
-          <Route exact path="/" component={PrivateRoute} />
+          <Route path="/" component={PrivateRoute} />
         </Switch>
       </BrowserRouter>
     </div>

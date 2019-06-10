@@ -10,7 +10,6 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-unused-state */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
 import { traineeData } from './index';
@@ -41,9 +40,4 @@ class TraineeList extends React.Component {
     return (traineeListOutput);
   }
 }
-
-TraineeList.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
 export default withStyles(listStyle)(TraineeList);

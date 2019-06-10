@@ -9,7 +9,7 @@ const style = ({
   content: {
     textAlign: 'center',
     margin: 'auto',
-    fontSize: 22,
+    fontSize: 16,
   },
 });
 
@@ -18,7 +18,7 @@ class Footer extends React.Component {
     const { classes } = this.props;
     const footerOutput = [
       <div className={classes.content}>
-        &copy; Successive Technology
+        Successive Technology &copy; 2019
       </div>,
     ];
     return footerOutput;

@@ -47,7 +47,6 @@ class TableComponent extends React.Component {
       id,
       match,
     } = this.props;
-    console.log(match);
     return (
       <div className={classes.root}>
         <Paper className={classes.paper}>
@@ -87,7 +86,7 @@ class TableComponent extends React.Component {
                         scope="row"
                         align={items.align}
                       >
-                        <Link to={`/${match.url}/${row.id}`} className={classes.link}>
+                        <Link to={`${match.url}/${row.id}`} className={classes.link}>
                           {(items.format
                             ? items.format(row[items.field])
                             : row[items.field])

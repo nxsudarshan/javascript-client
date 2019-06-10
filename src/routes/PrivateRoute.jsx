@@ -22,7 +22,7 @@ export const PrivateRoute = (props) => {
     <Route
       {...rest}
       render={matchedProps => (
-        <PrivateLayout>
+        <PrivateLayout {...rest}>
           <Component {...matchedProps} />
         </PrivateLayout>
       )

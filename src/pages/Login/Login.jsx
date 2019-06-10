@@ -34,16 +34,13 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import * as yup from 'yup';
 import {
-  BrowserRouter,
-  Route,
-  Link,
-  Switch,
   Redirect,
 } from 'react-router-dom';
 
 import { configenv } from '../../configs/environment';
 import { default as Api } from '../../lib/utils/api';
-import { SnackBarConsumer } from '../../contexts/SnackBarProvider/SnackBarProvider';
+import { SnackBarConsumer } from '../../contexts';
+import { withStorage } from '../../HOC';
 
 const loginSchema = yup.object().shape({
   email: yup.string()
@@ -55,7 +52,9 @@ const loginSchema = yup.object().shape({
 
 const styles = ({
   primary: {
-    margin: 40,
+    display: 'flex',
+    flexGrow: 1,
+    margin: 10,
   },
   secondary: {
     margin: 0,
@@ -101,18 +100,17 @@ class Login extends React.Component {
     const { email, password } = this.state;
     const { openSnackBar } = this.context;
     const { history } = this.props;
-    console.log(history);
     this.setState({
       buttonDisabled: true,
     });
-    console.log(this.props);
     try {
       const res = await Api({ email, password });
-      console.log(res);
       const { data } = res;
+      const { save } = this.props;
+      save('user', data.data);
       this.setState({ buttonDisabled: false, loginSuccess: true });
-      openSnackBar(data.status, 'success');
-      this.props.history.push('/trainee');
+      openSnackBar('Login Successfully', 'success');
+      history.push('/trainee');
     } catch (err) {
       if (err.response) {
         const { data } = err.response;
@@ -171,10 +169,10 @@ class Login extends React.Component {
     const loginOutput = [
       <>
         <Grid className={classes.primary} container justify="center">
-          <Grid item xs={3}>
+          <Grid xs={3}>
             <Paper>
               <Box display="flex" justifyContent="center" alignItems="center">
-                <Box m={2}>
+                <Box>
                   <Avatar className={classes.root}><LockOutlined /></Avatar>
                 </Box>
               </Box>
@@ -283,5 +281,5 @@ class Login extends React.Component {
 }
 
 Login.contextType = SnackBarConsumer;
-
-export default withStyles(styles)(Login);
+const WrappedComponent = withStorage(Login);
+export default withStyles(styles)(WrappedComponent);

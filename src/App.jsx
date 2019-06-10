@@ -3,7 +3,6 @@
 import React from 'react';
 import {
   BrowserRouter,
-  Route,
   Switch,
   Redirect,
 } from 'react-router-dom';
@@ -16,6 +15,7 @@ import {
   InputDemo,
   TraineeDetail,
   NoMatch,
+  Login,
 } from './pages';
 import { SnackBarProvider } from './contexts';
 // import { Login } from './pages';
@@ -26,7 +26,7 @@ export default function App() {
       <SnackBarProvider>
         <BrowserRouter>
           <Switch>
-            <Route path="/login" component={AuthRoute} />
+            <AuthRoute path="/login" component={Login} />
             <PrivateRoute key="1" path="/trainee" component={Trainee} />
             <PrivateRoute key="2" path="/children-demo" component={ChildrenDemo} />
             <PrivateRoute key="3" path="/textField-demo" component={TextFieldDemo} />

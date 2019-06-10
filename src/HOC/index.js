@@ -1,1 +1,1 @@
-export { localStorageHandle } from './localStorageHandle';
+export { withStorage } from './localStorageHandle';

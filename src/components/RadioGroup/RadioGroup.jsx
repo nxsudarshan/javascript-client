@@ -1,7 +1,8 @@
-/* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable react/prop-types */
+/* eslint-disable array-callback-return */
 import React from 'react';
+
 import { textStyle } from './style';
 
 export class RadioGroup extends React.Component {
@@ -24,7 +25,12 @@ export class RadioGroup extends React.Component {
             onClick={onClick}
             onFocus={onFocus}
           />
-          <label style={textStyle} htmlFor={item.value}>{item.label}</label>
+          <label
+            style={textStyle}
+            htmlFor={item.value}
+          >
+            {item.label}
+          </label>
         </div>
       ))
     );

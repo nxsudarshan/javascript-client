@@ -79,8 +79,9 @@ class TableComponent extends React.Component {
       actions,
       count,
       page,
+      id,
+      match,
     } = this.props;
-    console.log(this.props);
     return (
       <div className={classes.root}>
         <Paper className={classes.paper}>
@@ -118,13 +119,15 @@ class TableComponent extends React.Component {
             <TableBody>
               {
                 data.map(row => (
-                  <TableRow className={classes.alternateRow} hover>
+                  <TableRow
+                    key={row.id}
+                    className={classes.alternateRow}
+                    onClick={() => onSelect(row.id)}
+                  >
                     {columns.map(items => (
                       <TableCell
-                        className={classes.rowHover}
-                        key={row[items.field]}
-                        scope="row"
                         align={items.align}
+                        scope="row"
                       >
                         <Link to={`/trainee/${row.id}`} className={classes.link}>
                           {(items.format
@@ -179,8 +182,6 @@ class TableComponent extends React.Component {
   }
 
   handleChangePage = (event, page) => {
-    console.log(page);
-    // const { page, count } = this.state;
     this.setState({
       page,
     });
@@ -192,5 +193,4 @@ class TableComponent extends React.Component {
     });
   }
 }
-
 export default withStyles(style)(TableComponent);

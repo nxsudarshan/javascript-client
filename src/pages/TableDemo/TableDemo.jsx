@@ -60,8 +60,9 @@ export class TableDemo extends React.Component {
     });
   }
 
-  handleSelect = (e) => {
-    console.log(e);
+  handleSelect = (id) => {
+    const { match } = this.props;
+    this.props.history.push(`${match.url}/${id}`);
   }
 
   handleDeleteDialog = (value) => {
@@ -69,6 +70,7 @@ export class TableDemo extends React.Component {
   }
 
   render() {
+    const { ...rest } = this.props;
     const {
       order,
       orderBy,
@@ -98,6 +100,7 @@ export class TableDemo extends React.Component {
               align: 'right',
             },
           ]}
+
           data={traineeData}
           order={order}
           orderBy={orderBy}
@@ -118,6 +121,7 @@ export class TableDemo extends React.Component {
           count={this.count}
           page={this.page}
           onChangePage={this.handleChangePage}
+          {...rest}
         />
         {editDialog && (
           <EditDialog

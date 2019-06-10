@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unused-state */
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-sequences */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable array-callback-return */
@@ -9,26 +11,42 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import React from 'react';
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/styles';
 import Table from '@material-ui/core/Table';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Link } from 'react-router-dom';
 
 import { style } from './style';
 
+
 class TableComponent extends React.Component {
+  createSortHandler = field => (event) => {
+    const { onSort, order } = this.props;
+    const ord = order === 'asc' ? 'desc' : 'asc';
+    onSort({
+      orderBy: field,
+      order: ord,
+    });
+  }
+
   render() {
     const {
       classes,
       data,
       columns,
+      order,
+      orderBy,
+      onSort,
+      onSelect,
       id,
+      match,
     } = this.props;
-    const field = columns.map(item => item.field);
     return (
       <div className={classes.root}>
         <Paper className={classes.paper}>
@@ -42,8 +60,16 @@ class TableComponent extends React.Component {
                         key={item.field}
                         align={item.align}
                         title={item.field}
+                        sortDirection={orderBy === item.field ? order : false}
                       >
-                        {item.label}
+
+                        <TableSortLabel
+                          active={orderBy === item.field}
+                          direction={order}
+                          onClick={this.createSortHandler(item.field)}
+                        >
+                          {item.label}
+                        </TableSortLabel>
                       </TableCell>
                     </>
                   ))
@@ -54,14 +80,23 @@ class TableComponent extends React.Component {
 
               {
                 data.map(row => (
-                  <TableRow key={row.id}>
+                  <TableRow
+                    key={row.id}
+                    className={classes.alternateRow}
+                    onClick={() => onSelect(row.id)}
+                  >
                     {columns.map(items => (
+
                       <TableCell
-                        scope="row"
                         align={items.align}
+                        scope="row"
                       >
-                        {row[items.field]}
+                        {(items.format
+                          ? items.format(row[items.field])
+                          : row[items.field])
+                        }
                       </TableCell>
+
                     ))
                     }
                   </TableRow>
@@ -74,5 +109,4 @@ class TableComponent extends React.Component {
     );
   }
 }
-
 export default withStyles(style)(TableComponent);

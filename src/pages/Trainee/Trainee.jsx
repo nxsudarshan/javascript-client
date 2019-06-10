@@ -11,7 +11,6 @@ import { withStyles } from '@material-ui/styles';
 
 
 import { AddDialog } from './component';
-import { default as TraineeList } from './TraineeList';
 import { TableDemo } from '../index';
 
 const style = {
@@ -42,7 +41,7 @@ class Trainee extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes,...rest } = this.props;
     const result = [
       <>
         <div className={classes.button}>
@@ -55,8 +54,7 @@ class Trainee extends React.Component {
           </Button>
         </div>
         <br />
-        <TableDemo />
-        <TraineeList />
+        <TableDemo {...rest} />
         <AddDialog
           open={this.state.open}
           onClose={this.handleClickClose}

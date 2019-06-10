@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable no-unused-expressions */
+/* eslint-disable react/prop-types */
 /* eslint-disable array-callback-return */
 import React from 'react';
 
@@ -26,7 +25,12 @@ export class RadioGroup extends React.Component {
             onClick={onClick}
             onFocus={onFocus}
           />
-          <label style={textStyle} htmlFor={item.value}>{item.label}</label>
+          <label
+            style={textStyle}
+            htmlFor={item.value}
+          >
+            {item.label}
+          </label>
         </div>
       ))
     );

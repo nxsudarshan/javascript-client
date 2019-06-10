@@ -23,3 +23,5 @@ export const SELECT_ARRAY = [
   { label: CRICKET, value: CRICKET },
   { label: FOOTBALL, value: FOOTBALL },
 ];
+
+export const dateFormat = 'dddd, MMMM Do YYYY, h: mm: ss a';

@@ -1,6 +1,3 @@
-/* eslint-disable import/no-duplicates */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-boolean-value */
@@ -12,7 +9,12 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react';
 
-import { ButtonComponent as Button } from '../../components';
+import {
+  ButtonComponent as Button,
+  TextField,
+  SelectField,
+  RadioGroup,
+} from '../../components';
 import {
   CRICKET_ARRAY,
   SELECT_ARRAY,
@@ -20,8 +22,6 @@ import {
   CRICKET,
   FOOTBALL,
 } from '../../configs/constants';
-// eslint-disable-next-line import/named
-import { TextField, SelectField, RadioGroup } from '../../components';
 import { inputDemoSchema } from '../../configs';
 
 const touchedError = {

@@ -15,4 +15,17 @@ export const style = {
     minWidth: 400,
     align: 'center',
   },
+  alternateRow: {
+    '&:nth-of-type(odd)': {
+      background: '#f1f8ff',
+    },
+    '&:hover': {
+      background: '#E1f8ff',
+      cursor: 'pointer',
+    },
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'black',
+  },
 };

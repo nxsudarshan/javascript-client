@@ -8,22 +8,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import {
-  BrowserRouter,
-  Route,
-  Link,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
-
-import {
-  Trainee,
-  ChildrenDemo,
-  TextFieldDemo,
-  InputDemo,
-  NoMatch,
-  TraineeDetail,
-} from '../../../pages/index';
+import { Link } from 'react-router-dom';
 
 const useStyles = ({
   root: {
@@ -51,53 +36,37 @@ class Navbar extends React.Component {
   render() {
     const { classes } = this.props;
     const navbarOutput = [
-      <div>
-        <BrowserRouter>
-          <AppBar position="fixed">
-            <Toolbar className={classes.content}>
-              <Typography variant="h6" className={classes.title}>
-                Trainee Portal
-              </Typography>
-              <Link to="/">
-                <Button color="inherit" className={classes.root}>
-                  trainee
-                </Button>
-              </Link>
-              <Link to="/textField-demo" className={classes.root}>
-                <Button color="inherit">
-                  textField demo
-                </Button>
-              </Link>
-              <Link to="/input-demo">
-                <Button color="inherit" className={classes.root}>
-                  input demo
-                </Button>
-              </Link>
-              <Link to="/children-demo">
-                <Button color="inherit" className={classes.root}>
-                  children demo
-                </Button>
-              </Link>
-              <Button color="inherit" className={classes.logout}>
-                Logout
+      <div className={classes.main}>
+        <AppBar position="fixed">
+          <Toolbar className={classes.content}>
+            <Typography variant="h6" className={classes.title}>
+              Trainee Portal
+            </Typography>
+            <Link to="/">
+              <Button color="inherit" className={classes.root}>
+                trainee
               </Button>
-            </Toolbar>
-          </AppBar>
-          <div className={classes.main}>
-            <Switch>
-              <Route exact path="/trainee" component={Trainee} />
-              <Route path="/children-demo" component={ChildrenDemo} />
-              <Route path="/textField-demo" component={TextFieldDemo} />
-              <Route path="/input-demo" component={InputDemo} />
-              <Route path="/trainee/:id" component={TraineeDetail} />
-              <Route exact path="/">
-                <Redirect to="/trainee" />
-              </Route>
-              <Route component={NoMatch} />
-            </Switch>
-          </div>
-
-        </BrowserRouter>
+            </Link>
+            <Link to="/textField-demo" className={classes.root}>
+              <Button color="inherit">
+                textField demo
+              </Button>
+            </Link>
+            <Link to="/input-demo">
+              <Button color="inherit" className={classes.root}>
+                input demo
+              </Button>
+            </Link>
+            <Link to="/children-demo">
+              <Button color="inherit" className={classes.root}>
+                children demo
+              </Button>
+            </Link>
+            <Button color="inherit" className={classes.logout}>
+              Logout
+            </Button>
+          </Toolbar>
+        </AppBar>
       </div>,
     ];
     return navbarOutput;

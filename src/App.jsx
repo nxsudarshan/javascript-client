@@ -27,11 +27,11 @@ export default function App() {
         <BrowserRouter>
           <Switch>
             <Route path="/login" component={AuthRoute} />
-            <PrivateRoute path="/trainee" component={Trainee} />
-            <PrivateRoute path="/children-demo" component={ChildrenDemo} />
-            <PrivateRoute path="/textField-demo" component={TextFieldDemo} />
-            <PrivateRoute path="/input-demo" component={InputDemo} />
-            <PrivateRoute path="/trainee/:id" component={TraineeDetail} />
+            <PrivateRoute key="1" path="/trainee" component={Trainee} />
+            <PrivateRoute key="2" path="/children-demo" component={ChildrenDemo} />
+            <PrivateRoute key="3" path="/textField-demo" component={TextFieldDemo} />
+            <PrivateRoute key="4" path="/input-demo" component={InputDemo} />
+            <PrivateRoute key="5" path="/trainee/:id" component={TraineeDetail} />
             <Redirect to="/trainee" />
             <PrivateRoute component={NoMatch} />
           </Switch>

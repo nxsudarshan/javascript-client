@@ -100,6 +100,8 @@ class Login extends React.Component {
   handleSubmit = async () => {
     const { email, password } = this.state;
     const { openSnackBar } = this.context;
+    const { history } = this.props;
+    console.log(history);
     this.setState({
       buttonDisabled: true,
     });
@@ -112,17 +114,13 @@ class Login extends React.Component {
       openSnackBar(data.status, 'success');
       this.props.history.push('/trainee');
     } catch (err) {
-      const { data } = err.response;
-      this.setState({ data: {}, buttonDisabled: false, loginSuccess: false });
-      openSnackBar('Opps! email and password might be incorrect\n please enter valid email and password', 'error');
+      if (err.response) {
+        const { data } = err.response;
+        this.setState({ data, buttonDisabled: false, loginSuccess: false });
+        openSnackBar('Opps! email and password might be incorrect\n'
+          + 'please enter valid email and password', 'error');
+      }
     }
-    // Api({ email, password })
-    //   .then((res) => {
-
-    //   })
-    //   .catch((err) => {
-
-    //   });
   }
 
   validate = () => {

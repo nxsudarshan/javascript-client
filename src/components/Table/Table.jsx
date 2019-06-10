@@ -122,12 +122,13 @@ class TableComponent extends React.Component {
                   <TableRow
                     key={row.id}
                     className={classes.alternateRow}
-                    onClick={() => onSelect(row.id)}
+
                   >
                     {columns.map(items => (
                       <TableCell
                         align={items.align}
                         scope="row"
+                        onClick={() => onSelect(row.id)}
                       >
                         <Link to={`/trainee/${row.id}`} className={classes.link}>
                           {(items.format

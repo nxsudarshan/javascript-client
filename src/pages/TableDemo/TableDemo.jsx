@@ -21,8 +21,13 @@ export class TableDemo extends React.Component {
     this.setState({ ...orderDetails });
   }
 
+  handleSelect = (id) => {
+    console.log(id);
+  }
+
   render() {
     const { order, orderBy } = this.state;
+    const { ...rest } = this.props;
     return (
       <TableComponent
         id="id"
@@ -48,7 +53,8 @@ export class TableDemo extends React.Component {
         order={order}
         orderBy={orderBy}
         onSort={this.handleChange}
-        onSelect=""
+        onSelect={this.handleSelect}
+        {...rest}
       />
     );
   }

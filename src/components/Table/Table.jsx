@@ -20,6 +20,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Link } from 'react-router-dom';
 
 import { style } from './style';
 
@@ -35,7 +36,6 @@ class TableComponent extends React.Component {
   }
 
   render() {
-    console.log(style);
     const {
       classes,
       data,
@@ -45,7 +45,9 @@ class TableComponent extends React.Component {
       onSort,
       onSelect,
       id,
+      match,
     } = this.props;
+    console.log(match);
     return (
       <div className={classes.root}>
         <Paper className={classes.paper}>
@@ -85,10 +87,12 @@ class TableComponent extends React.Component {
                         scope="row"
                         align={items.align}
                       >
-                        {(items.format
-                          ? items.format(row[items.field])
-                          : row[items.field])
-                        }
+                        <Link to={`/${match.url}/${row.id}`} className={classes.link}>
+                          {(items.format
+                            ? items.format(row[items.field])
+                            : row[items.field])
+                          }
+                        </Link>
                       </TableCell>
                     ))
                     }
@@ -102,5 +106,4 @@ class TableComponent extends React.Component {
     );
   }
 }
-
 export default withStyles(style)(TableComponent);

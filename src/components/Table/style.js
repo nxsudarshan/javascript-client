@@ -17,10 +17,15 @@ export const style = {
   },
   alternateRow: {
     '&:nth-of-type(odd)': {
-      background: 'lightGrey',
+      background: '#f1f8ff',
     },
     '&:hover': {
+      background: '#E1f8ff',
       cursor: 'pointer',
     },
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'black',
   },
 };

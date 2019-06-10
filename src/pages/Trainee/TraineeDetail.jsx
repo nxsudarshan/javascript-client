@@ -25,8 +25,6 @@ import {
 } from 'react-router-dom';
 
 import { default as traineeData } from './Data/trainee';
-import { PrivateLayout } from '../../layouts';
-import { NoMatch } from '../index';
 
 const cardStyles = {
   card: {

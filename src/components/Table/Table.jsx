@@ -80,19 +80,23 @@ class TableComponent extends React.Component {
 
               {
                 data.map(row => (
-                  <TableRow key={row.id} className={classes.alternateRow}>
+                  <TableRow
+                    key={row.id}
+                    className={classes.alternateRow}
+                    onClick={() => onSelect(row.id)}
+                  >
                     {columns.map(items => (
+
                       <TableCell
-                        scope="row"
                         align={items.align}
+                        scope="row"
                       >
-                        <Link to={`${match.url}/${row.id}`} className={classes.link}>
-                          {(items.format
-                            ? items.format(row[items.field])
-                            : row[items.field])
-                          }
-                        </Link>
+                        {(items.format
+                          ? items.format(row[items.field])
+                          : row[items.field])
+                        }
                       </TableCell>
+
                     ))
                     }
                   </TableRow>

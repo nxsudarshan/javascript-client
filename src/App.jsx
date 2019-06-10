@@ -24,7 +24,7 @@ export default function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/login" component={AuthRoute} />
-          <PrivateRoute path="/trainee" component={Trainee} />
+          <PrivateRoute exact path="/trainee" component={Trainee} />
           <PrivateRoute path="/children-demo" component={ChildrenDemo} />
           <PrivateRoute path="/textField-demo" component={TextFieldDemo} />
           <PrivateRoute path="/input-demo" component={InputDemo} />

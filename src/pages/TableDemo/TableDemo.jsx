@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
@@ -22,7 +24,8 @@ export class TableDemo extends React.Component {
   }
 
   handleSelect = (id) => {
-    console.log(id);
+    const { match } = this.props;
+    this.props.history.push(`${match.url}/${id}`);
   }
 
   render() {

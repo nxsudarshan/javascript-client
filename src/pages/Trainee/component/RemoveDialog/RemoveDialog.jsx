@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Button from '@material-ui/core/Button';
@@ -11,8 +12,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 export class RemoveDialog extends React.Component {
   handleDelete = () => {
     const { data, handleDelete, handleClose } = this.props;
-    handleDelete(data);
-    handleClose();
+    if (window.confirm('Are you sure you want to delete the selected trainee') === true) {
+      handleDelete(data);
+      handleClose();
+    }
   }
 
   render() {

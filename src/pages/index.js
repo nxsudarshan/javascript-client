@@ -6,3 +6,4 @@ export { Trainee } from './Trainee';
 export { Login } from './Login';
 export { NoMatch } from './NoMatch';
 export { TraineeDetail } from './Trainee';
+export { TableDemo } from './TableDemo';

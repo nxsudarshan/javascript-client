@@ -96,6 +96,7 @@ class Navbar extends React.Component {
               <Route component={NoMatch} />
             </Switch>
           </div>
+
         </BrowserRouter>
       </div>,
     ];

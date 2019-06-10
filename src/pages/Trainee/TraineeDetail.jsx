@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/forbid-prop-types */
@@ -25,6 +26,7 @@ import {
 
 import { default as traineeData } from './Data/trainee';
 import { PrivateLayout } from '../../layouts';
+import { NoMatch } from '../index';
 
 const cardStyles = {
   card: {

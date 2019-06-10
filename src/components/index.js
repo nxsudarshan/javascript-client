@@ -5,3 +5,4 @@ export { SelectField } from './SelectField';
 export { RadioGroup } from './RadioGroup';
 export { ButtonComponent } from './Button';
 export { Math } from './Math';
+export { TableComponent } from './Table';

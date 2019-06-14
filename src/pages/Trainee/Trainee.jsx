@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-constructor */
 /* eslint-disable react/prop-types */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-named-default */
@@ -7,6 +8,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/styles';
+
 import { AddDialog } from './component';
 import { TableDemo } from '../index';
 
@@ -16,12 +18,19 @@ const style = {
     margin: 'auto',
     float: 'right',
   },
+  loader: {
+    align: 'center',
+  },
 };
 
 class Trainee extends React.Component {
   state = {
     open: false,
-  };
+  }
+
+  constructor(props) {
+    super(props);
+  }
 
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -41,7 +50,6 @@ class Trainee extends React.Component {
     const { classes } = this.props;
     const result = [
       <>
-
         <div className={classes.button}>
           <Button
             variant="outlined"

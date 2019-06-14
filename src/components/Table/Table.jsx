@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-sequences */
@@ -20,12 +21,35 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Fab from '@material-ui/core/Fab';
+import TablePagination from '@material-ui/core/TablePagination';
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Switch,
+} from 'react-router-dom';
 
 import { style } from './style';
-
+import { TraineeDetail } from '../../pages';
 
 class TableComponent extends React.Component {
+  state = {
+    page: '',
+    count: '',
+  };
+
+  constructor(props) {
+    super(props);
+    const { page, count } = props;
+    this.state = ({
+      page,
+      count,
+    });
+  }
+
   createSortHandler = field => (event) => {
     const { onSort, order } = this.props;
     const ord = order === 'asc' ? 'desc' : 'asc';
@@ -33,6 +57,16 @@ class TableComponent extends React.Component {
       orderBy: field,
       order: ord,
     });
+  }
+
+  handleChangePage = (event) => {
+    const { onChangePage } = this.props;
+    console.log(event.target.value);
+    // onChangePage(value);
+  }
+
+  handleNoHandler = () => {
+    console.log('there is no handler for it');
   }
 
   render() {
@@ -44,6 +78,9 @@ class TableComponent extends React.Component {
       orderBy,
       onSort,
       onSelect,
+      actions,
+      count,
+      page,
       id,
       match,
     } = this.props;
@@ -66,7 +103,7 @@ class TableComponent extends React.Component {
                         <TableSortLabel
                           active={orderBy === item.field}
                           direction={order}
-                          onClick={this.createSortHandler(item.field)}
+                          onChange={() => this.createSortHandler(item.field)}
                         >
                           {item.label}
                         </TableSortLabel>
@@ -74,39 +111,84 @@ class TableComponent extends React.Component {
                     </>
                   ))
                 }
+                <TableCell
+                  key="operations"
+                  align=""
+                  title=""
+                />
               </TableRow>
             </TableHead>
             <TableBody>
-
               {
                 data.map(row => (
                   <TableRow
                     key={row.id}
                     className={classes.alternateRow}
-                    onClick={() => onSelect(row.id)}
+
                   >
                     {columns.map(items => (
-
                       <TableCell
                         align={items.align}
                         scope="row"
+                        onClick={() => onSelect(row.id)}
                       >
-                        {(items.format
-                          ? items.format(row[items.field])
-                          : row[items.field])
-                        }
+                        <Link to={`/trainee/${row.id}`} className={classes.link}>
+                          {(items.format
+                            ? items.format(row[items.field])
+                            : row[items.field])
+                          }
+                        </Link>
                       </TableCell>
-
                     ))
                     }
+                    {
+                      actions.map(item => (
+                        <IconButton
+                          variant="contained"
+                          color="default"
+                          aria-label={item.name}
+                          title={item.name}
+                          onClick={() => item.handler(row)}
+                        >
+                          {item.icon}
+                        </IconButton>
+                      ))
+                    }
                   </TableRow>
+
                 ))
               }
             </TableBody>
           </Table>
+          <TablePagination
+            component="div"
+            count={50}
+            rowsPerPage={this.state.count}
+            page={this.state.page}
+            backIconButtonProps={{
+              'aria-label': 'Previous Page',
+            }}
+            nextIconButtonProps={{
+              'aria-label': 'Next Page',
+            }}
+            onChangePage={this.handleChangePage}
+            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+          />
         </Paper>
       </div>
     );
+  }
+
+  handleChangePage = (event, page) => {
+    this.setState({
+      page,
+    });
+  }
+
+  handleChangeRowsPerPage = (event) => {
+    this.setState({
+      count: event.target.value,
+    });
   }
 }
 export default withStyles(style)(TableComponent);

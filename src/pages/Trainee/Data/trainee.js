@@ -29,6 +29,7 @@ const trainees = [
     email: 'bumhrah@gmail.com',
     createdAt: '2019-02-15T18:15:11.778Z',
   },
+
 ];
 
 

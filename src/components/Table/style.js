@@ -14,11 +14,14 @@ export const style = {
   table: {
     minWidth: 400,
     align: 'center',
+
   },
   alternateRow: {
     '&:nth-of-type(odd)': {
       background: '#f1f8ff',
     },
+  },
+  rowHover: {
     '&:hover': {
       background: '#E1f8ff',
       cursor: 'pointer',

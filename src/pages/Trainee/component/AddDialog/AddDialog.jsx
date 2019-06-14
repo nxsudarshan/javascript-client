@@ -31,6 +31,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
+
+import { SnackBarConsumer } from '../../../../contexts/SnackBarProvider/SnackBarProvider';
 import { traineeSchema } from '../../Schema/traineeSchema';
 
 export class AddDialog extends React.Component {
@@ -166,6 +168,8 @@ export class AddDialog extends React.Component {
   }
 
   onSubmitHandle = () => {
+    const { openSnackBar } = this.context;
+    openSnackBar('Trainee Successfully Added', 'success');
     const { onSubmit } = this.props;
     const { name, email, password } = this.state;
     onSubmit({ name, email, password });
@@ -320,3 +324,4 @@ export class AddDialog extends React.Component {
     return dialogComponent;
   }
 }
+AddDialog.contextType = SnackBarConsumer;

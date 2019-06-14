@@ -207,7 +207,7 @@ class Login extends React.Component {
                           <LockOutlined />
                         </Avatar>
                       </Grid>
-                      <Grid item className={classes.header}>
+                      <Grid container justify="center" item className={classes.header}>
                         <Typography variant="h5">
                           Login
                         </Typography>

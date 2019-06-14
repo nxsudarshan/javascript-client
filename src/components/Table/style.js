@@ -23,6 +23,7 @@ export const style = {
   },
   rowHover: {
     '&:hover': {
+      background: '#E1f8ff',
       cursor: 'pointer',
     },
   },

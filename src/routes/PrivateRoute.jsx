@@ -1,22 +1,22 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import {
-  BrowserRouter,
   Route,
-  Switch,
 } from 'react-router-dom';
+
 import { PrivateLayout } from '../layouts';
 
-export class PrivateRoute extends React.Component {
-  render() {
-    const privateRiteOutput = [
-      <>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={PrivateLayout} />
-          </Switch>
-        </BrowserRouter>
-      </>,
-    ];
-    return privateRiteOutput;
-  }
-}
+export const PrivateRoute = (props) => {
+  const { component: Component, ...rest } = props;
+  return (
+    <Route
+      {...rest}
+      render={matchedProps => (
+        <PrivateLayout>
+          <Component {...matchedProps} />
+        </PrivateLayout>
+      )
+      }
+    />
+  );
+};

@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import LockOutlined from '@material-ui/icons/LockOutlined';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
@@ -31,7 +32,7 @@ import * as yup from 'yup';
 
 const loginSchema = yup.object().shape({
   email: yup.string()
-    .required('Email Add is a required')
+    .required('Email Address is a required')
     .email('Email Address must be a valid'),
   password: yup.string()
     .required('Password is Required'),
@@ -46,18 +47,50 @@ const styles = ({
     padding: 10,
   },
   root: {
-    color: '#FFFFFF',
-    backgroundColor: '#FC0043',
+    margin: 40,
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
-  bigButton: {
-    marginTop: 30,
-    height: 50,
+  input: {
+    margin: 10,
+    padding: 10,
+  },
+  inputMargin: {
+    margin: 20,
   },
   errorStyle: {
     color: '#FF0303',
   },
   iconSize: {
     width: 5,
+  },
+  paper: {
+    padding: 2,
+    margin: 'auto',
+    maxWidth: 400,
+    display: 'flex',
+  },
+  image: {
+    width: 128,
+    height: 128,
+  },
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
+  },
+  avatarColor: {
+    padding: 2,
+    margin: 'auto',
+    color: 'white',
+    background: 'red',
+  },
+  header: {
+    margin: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 class Login extends React.Component {
@@ -70,10 +103,24 @@ class Login extends React.Component {
     email: '',
     password: '',
     showPassword: false,
+    isTouched: {
+      email: false,
+      password: false,
+    },
+    isError: {
+      email: false,
+      password: false,
+    },
   };
 
   getTextField = (event) => {
+    const { errors, isTouched, isError } = this.state;
+    isTouched[event.target.name] = true;
+    const index = errors.findIndex(item => item.path === event.target.name);
+    isError[event.target.name] = ((index > -1) && (isTouched[event.target.name]));
     this.setState({
+      isTouched,
+      isError,
       [event.target.name]: event.target.value,
     }, this.validate);
   }
@@ -120,31 +167,58 @@ class Login extends React.Component {
     this.setState({ ...state, showPassword: !state.showPassword });
   }
 
+  onBlurHandler = (event) => {
+    const { errors, isTouched, isError } = this.state;
+    isTouched[event.target.name] = true;
+    const index = errors.findIndex(item => item.path === event.target.name);
+    isError[event.target.name] = ((index > -1) && (isTouched[event.target.name]));
+    this.setState({
+      isTouched,
+      isError,
+    });
+  }
+
+  onFocusHandler = (field) => {
+    const { errors, isTouched, isError } = this.state;
+    isTouched[field] = true;
+    const index = errors.findIndex(item => item.path === field);
+    // return ((index > -1) && (isTouched[field]));
+    isError[field] = ((index > -1) && (isTouched[field]));
+    this.setState({
+      isTouched,
+      isError,
+    }, this.validate);
+  }
+
   render() {
     const { classes } = this.props;
-    const { password, showPassword } = this.state;
+    const { password, showPassword, isError } = this.state;
     const loginOutput = [
       <>
         <form>
-          <Grid className={classes.primary} container justify="center">
-            <Grid item xs={3}>
-              <Paper>
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <Box m={2}>
-                    <Avatar className={classes.root}><LockOutlined /></Avatar>
-                  </Box>
-                </Box>
-                <Box display="flex" justifyContent="center">
+          <div className={classes.paper}>
+            <Paper className={classes.root}>
+              <Grid>
+                <Grid item>
                   <Box>
-                    <Typography variant="h5" component="h1">
-                      Login
-                    </Typography>
+                    <Box m={4}>
+                      <Grid item>
+                        <Avatar className={classes.avatarColor}>
+                          <LockOutlined />
+                        </Avatar>
+                      </Grid>
+                      <Grid item className={classes.header}>
+                        <Typography variant="h5">
+                          Login
+                        </Typography>
+                      </Grid>
+                    </Box>
                   </Box>
-                </Box>
-                <Box display="flex" justifyContent="center" m={2} p={1}>
-                  <Grid container justify="center" spacing={1}>
-                    <Grid item xs={12}>
-                      <FormControl fullWidth style={this.style}>
+                </Grid>
+                <Grid item sm container>
+                  <Grid item xs className={classes.input}>
+                    <Grid item className={classes.inputMargin}>
+                      <FormControl fullWidth>
                         <TextField
                           name="email"
                           id="outlined-name"
@@ -152,8 +226,9 @@ class Login extends React.Component {
                           // className={classes.textField}
                           variant="outlined"
                           onChange={this.getTextField}
-                          onFocus={this.getTextField}
-                          error={this.setError('email')}
+                          onBlur={this.onBlurHandler}
+                          onFocus={() => this.onFocusHandler('email')}
+                          error={isError.email}
                           InputProps={{
                             startAdornment: (
                               <InputAdornment position="start">
@@ -162,27 +237,30 @@ class Login extends React.Component {
                             ),
                           }}
                         />
-                        <FormHelperText
-                          id="email-helper-text"
-                          className={classes.errorStyle}
-                        >
-                          {this.getError('email')}
-                        </FormHelperText>
+                        {isError.email ? (
+                          <FormHelperText
+                            id="email-helper-text"
+                            className={classes.errorStyle}
+                          >
+                            {this.getError('email')}
+                          </FormHelperText>
+                        ) : ''}
                       </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
-                      <FormControl fullWidth style={this.style}>
+                    <Grid item className={classes.inputMargin}>
+                      <FormControl fullWidth>
                         <TextField
                           name="password"
                           id="outlined-password"
                           label="Password"
                           // className={classes.textField}
                           variant="outlined"
-                          onFocus={this.getTextField}
                           type={showPassword ? 'text' : 'password'}
                           values={password}
                           onChange={this.getTextField}
-                          error={this.setError('password')}
+                          onBlur={this.onBlurHandler}
+                          onFocus={() => this.onFocusHandler('password')}
+                          error={isError.password}
                           InputProps={{
                             startAdornment: (
                               <InputAdornment position="start">
@@ -197,14 +275,21 @@ class Login extends React.Component {
                             ),
                           }}
                         />
-                        <FormHelperText id="password-helper-text" className={classes.errorStyle}>{this.getError('password')}</FormHelperText>
+                        {isError.password ? (
+                          <FormHelperText
+                            id="password-helper-text"
+                            className={classes.errorStyle}
+                          >
+                            {this.getError('password')}
+                          </FormHelperText>
+                        ) : ''}
                       </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item>
                       <Button
+                        fullWidth
                         variant="contained"
                         color="primary"
-                        fullWidth
                         className={classes.bigButton}
                         disabled={this.buttonDisabled()}
                         type="reset"
@@ -213,10 +298,11 @@ class Login extends React.Component {
                       </Button>
                     </Grid>
                   </Grid>
-                </Box>
-              </Paper>
-            </Grid>
-          </Grid>
+
+                </Grid>
+              </Grid>
+            </Paper>
+          </div>
         </form>
       </>,
     ];

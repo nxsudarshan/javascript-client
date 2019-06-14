@@ -49,8 +49,9 @@ export class TableDemo extends React.Component {
   }
 
   handleSubmitDialog = (value) => {
+    console.log(this.context);
     const { openSnackBar } = this.context;
-    openSnackBar('Trainee data successfully stored', 'success');
+    openSnackBar(`Trainee data successfully updated for ${value.name}`, 'success');
     console.log('Edited Item-->', value);
   }
 
@@ -68,6 +69,11 @@ export class TableDemo extends React.Component {
     });
   }
 
+  handleSelect = (id) => {
+    const { match } = this.props;
+    this.props.history.push(`${match.url}/${id}`);
+  }
+
   handleDeleteDialog = (value) => {
     const date = this.dataIsAfter(value.createdAt);
     const isAfter = moment(date).isAfter(requiredDate);
@@ -76,11 +82,12 @@ export class TableDemo extends React.Component {
       openSnackBar('Record Delete successfully', 'success');
       console.log('Deleted Item-->', [value.name, value.email]);
     } else {
-      openSnackBar('Error Record cannot delete due to date', 'error');
+      openSnackBar(`Error Record cannot delete due to date for ${value.name}`, 'error');
     }
   }
 
   render() {
+    const { ...rest } = this.props;
     const {
       order,
       orderBy,
@@ -110,6 +117,7 @@ export class TableDemo extends React.Component {
               align: 'right',
             },
           ]}
+
           data={traineeData}
           order={order}
           orderBy={orderBy}
@@ -130,6 +138,7 @@ export class TableDemo extends React.Component {
           count={this.count}
           page={this.page}
           onChangePage={this.handleChangePage}
+          {...rest}
         />
         {editDialog && (
           <EditDialog
@@ -154,5 +163,4 @@ export class TableDemo extends React.Component {
     );
   }
 }
-
 TableDemo.contextType = SnackBarConsumer;

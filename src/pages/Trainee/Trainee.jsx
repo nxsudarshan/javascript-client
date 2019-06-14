@@ -15,7 +15,6 @@ import { AddDialog } from './component';
 import { TableDemo } from '../index';
 import { getApi } from '../../lib/utils/api';
 import { withStorage } from '../../HOC';
-import { configenv } from '../../configs/environment';
 
 const style = {
   button: {

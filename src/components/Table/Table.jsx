@@ -143,21 +143,15 @@ class TableComponent extends React.Component {
                     }
                     {
                       actions.map(item => (
-                        <TableCell
-                          key={item.handler}
-                          scope="row"
-                          align={item.align}
+                        <IconButton
+                          variant="contained"
+                          color="default"
+                          aria-label={item.name}
+                          title={item.name}
+                          onClick={() => item.handler(row)}
                         >
-                          <IconButton
-                            variant="contained"
-                            color="default"
-                            aria-label={item.name}
-                            title={item.name}
-                            onClick={() => item.handler(row)}
-                          >
-                            {item.icon}
-                          </IconButton>
-                        </TableCell>
+                          {item.icon}
+                        </IconButton>
                       ))
                     }
                   </TableRow>

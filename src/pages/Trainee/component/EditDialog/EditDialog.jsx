@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-comp */
 /* eslint-disable no-this-before-super */
 /* eslint-disable constructor-super */
 /* eslint-disable no-unused-expressions */
@@ -24,15 +25,26 @@ const styles = ({
   },
 });
 class EditDialog extends React.Component {
+  name;
+
+  email;
+
   state = {
     name: '',
     email: '',
+    errors: [''],
+    isError: {
+      name: false,
+      email: false,
+    },
   };
 
   constructor(props) {
     super(props);
     const { data } = props;
     const { name, email } = data;
+    this.name = name;
+    this.email = email;
     this.state = ({
       name,
       email,
@@ -50,6 +62,12 @@ class EditDialog extends React.Component {
     handleSubmit(this.state);
     handleClose();
   }
+
+  buttonDisabled = () => {
+    const { name, email } = this.state;
+    return !!(this.name === name && this.email === email);
+  };
+
 
   render() {
     const { classes } = this.props;
@@ -110,7 +128,13 @@ class EditDialog extends React.Component {
               <Button onClick={handleClose} color="primary">
                 Cancel
               </Button>
-              <Button variant="contained" onClick={() => this.handler()} color="primary" autoFocus>
+              <Button
+                variant="contained"
+                onClick={() => this.handler()}
+                disabled={this.buttonDisabled()}
+                color="primary"
+                autoFocus
+              >
                 Submit
               </Button>
             </DialogActions>

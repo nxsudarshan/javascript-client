@@ -6,25 +6,25 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
-import { AuthRoute, PrivateRoute } from './routes';
-
 import {
   Trainee,
+  TraineeDetail,
   ChildrenDemo,
   TextFieldDemo,
   InputDemo,
-  TraineeDetail,
   NoMatch,
   Login,
+  NotFound,
 } from './pages';
+import { AuthRoute, PrivateRoute } from './routes';
 import { SnackBarProvider } from './contexts';
 // import { Login } from './pages';
 // import { Login } from './pages';
 export default function App() {
   return (
     <div className="App">
-      <SnackBarProvider>
-        <BrowserRouter>
+      <BrowserRouter>
+        <SnackBarProvider>
           <Switch>
             <AuthRoute path="/login" component={Login} />
             <PrivateRoute key="1" path="/trainee" component={Trainee} />
@@ -32,11 +32,12 @@ export default function App() {
             <PrivateRoute key="3" path="/textField-demo" component={TextFieldDemo} />
             <PrivateRoute key="4" path="/input-demo" component={InputDemo} />
             <PrivateRoute key="5" path="/trainee/:id" component={TraineeDetail} />
+            <PrivateRoute key="6" path="/notFound" component={NotFound} />
             <Redirect to="/trainee" />
             <PrivateRoute component={NoMatch} />
           </Switch>
-        </BrowserRouter>
-      </SnackBarProvider>
+        </SnackBarProvider>
+      </BrowserRouter>
     </div>
   );
 }

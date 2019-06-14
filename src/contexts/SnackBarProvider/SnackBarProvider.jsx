@@ -52,8 +52,8 @@ export class SnackBarProvider extends React.PureComponent {
       </SnackBarContext.Provider>,
       <Snackbar
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
         open={open}
         autoHideDuration={5000}

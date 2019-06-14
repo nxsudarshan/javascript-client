@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable react/jsx-indent */
 /* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/no-unused-prop-types */
@@ -18,15 +20,11 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import {
-  BrowserRouter,
   Link,
-  Switch,
-  Route,
+  Redirect,
 } from 'react-router-dom';
 
 import { default as traineeData } from './Data/trainee';
-import { PrivateLayout } from '../../layouts';
-import { NoMatch } from '../index';
 
 const cardStyles = {
   card: {
@@ -57,12 +55,19 @@ const cardStyles = {
   },
 };
 class TraineeDetail extends React.Component {
-  getDate = date => moment(date).format('dddd, MMMM Do YYYY, h: mm: ss a')
+  getDateFormatted = date => moment(date).format('dddd, MMMM Do YYYY, h: mm: ss a')
 
   render() {
     const { match, classes } = this.props;
     const { params } = match;
     const getRow = traineeData.filter(row => row.id === params.id);
+    const id = getRow.map(row => row.id);
+    if (id.toString() !== params.id) {
+      const output = [
+        <Redirect to="/notFound" />,
+      ];
+      return output;
+    }
     const traineeDetailOutput = [
       <Card className={classes.card}>
         <CardMedia
@@ -77,7 +82,7 @@ class TraineeDetail extends React.Component {
               {getRow.map(item => item.name)}
             </Typography>
             <Typography variant="h6" gutterBottom className={classes.date}>
-              {this.getDate(getRow.map(item => item.createdAt))}
+              {this.getDateFormatted(getRow.map(item => item.createdAt).toString())}
             </Typography>
             <Typography variant="h5" gutterBottom>
               {getRow.map(item => item.email)}
@@ -96,10 +101,5 @@ class TraineeDetail extends React.Component {
     return traineeDetailOutput;
   }
 }
-
-TraineeDetail.propTypes = {
-  match: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(cardStyles)(TraineeDetail);

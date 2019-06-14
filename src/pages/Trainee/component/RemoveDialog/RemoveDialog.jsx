@@ -12,12 +12,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 export class RemoveDialog extends React.Component {
   handleDelete = () => {
     const { data, handleDelete, handleClose } = this.props;
-    if (window.confirm('Are you sure you want to delete the selected trainee') === true) {
-      handleDelete(data);
-      handleClose();
-    } else {
-      handleClose();
-    }
+    handleDelete(data);
+    handleClose();
   }
 
   render() {

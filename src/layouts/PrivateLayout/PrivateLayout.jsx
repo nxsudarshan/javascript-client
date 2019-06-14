@@ -4,10 +4,10 @@ import { Navbar } from '../index';
 
 export class PrivateLayout extends React.Component {
   render() {
-    const { children } = this.props;
+    const { children, ...rest } = this.props;
     const privateLayoutOutput = [
       <>
-        <Navbar />
+        <Navbar {...rest} />
         {children}
       </>,
     ];

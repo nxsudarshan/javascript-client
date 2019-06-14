@@ -62,7 +62,6 @@ class TableComponent extends React.Component {
   handleChangePage = (event) => {
     const { onChangePage } = this.props;
     console.log(event.target.value);
-    // onChangePage(value);
   }
 
   handleNoHandler = () => {
@@ -103,7 +102,7 @@ class TableComponent extends React.Component {
                         <TableSortLabel
                           active={orderBy === item.field}
                           direction={order}
-                          onChange={() => this.createSortHandler(item.field)}
+                          onClick={this.createSortHandler(item.field)}
                         >
                           {item.label}
                         </TableSortLabel>

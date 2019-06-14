@@ -27,7 +27,7 @@ export default function App() {
         <SnackBarProvider>
           <Switch>
             <AuthRoute path="/login" component={Login} />
-            <PrivateRoute key="1" path="/trainee" component={Trainee} />
+            <PrivateRoute key="1" exact path="/trainee" component={Trainee} />
             <PrivateRoute key="2" path="/children-demo" component={ChildrenDemo} />
             <PrivateRoute key="3" path="/textField-demo" component={TextFieldDemo} />
             <PrivateRoute key="4" path="/input-demo" component={InputDemo} />

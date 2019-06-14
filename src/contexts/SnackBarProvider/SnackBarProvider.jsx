@@ -105,7 +105,7 @@ MySnackbarContentWrapper.propTypes = {
   className: PropTypes.string,
   message: PropTypes.node,
   onClose: PropTypes.func,
-  variant: PropTypes.oneOf(['success', 'error']).isRequired,
+  variant: PropTypes.oneOf(['success', 'error']),
 };
 
 export const SnackBarConsumer = SnackBarContext.Consumer;

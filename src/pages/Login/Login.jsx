@@ -1,3 +1,7 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-dupe-keys */
+/* eslint-disable no-obj-calls */
+/* eslint-disable import/no-named-default */
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
@@ -26,9 +30,18 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Mail from '@material-ui/icons/Mail';
 import Visibility from '@material-ui/icons/Visibility';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import * as yup from 'yup';
+import {
+  Redirect,
+} from 'react-router-dom';
+
+import { configenv } from '../../configs/environment';
+import { default as Api } from '../../lib/utils/api';
+import { SnackBarConsumer } from '../../contexts';
+import { withStorage } from '../../HOC';
 
 const loginSchema = yup.object().shape({
   email: yup.string()
@@ -40,7 +53,9 @@ const loginSchema = yup.object().shape({
 
 const styles = ({
   primary: {
-    margin: 40,
+    display: 'flex',
+    flexGrow: 1,
+    margin: 10,
   },
   secondary: {
     margin: 0,
@@ -103,6 +118,8 @@ class Login extends React.Component {
     email: '',
     password: '',
     showPassword: false,
+    loginSuccess: false,
+    buttonDisabled: false,
     isTouched: {
       email: false,
       password: false,
@@ -112,6 +129,7 @@ class Login extends React.Component {
       password: false,
     },
   };
+
 
   getTextField = (event) => {
     const { errors, isTouched, isError } = this.state;
@@ -123,6 +141,31 @@ class Login extends React.Component {
       isError,
       [event.target.name]: event.target.value,
     }, this.validate);
+  }
+
+  handleSubmit = async () => {
+    const { email, password } = this.state;
+    const { openSnackBar } = this.context;
+    const { history } = this.props;
+    this.setState({
+      buttonDisabled: true,
+    });
+    try {
+      const res = await Api({ email, password });
+      const { data } = res;
+      const { save } = this.props;
+      save('user', data.data);
+      this.setState({ buttonDisabled: false, loginSuccess: true });
+      openSnackBar('Login Successfully', 'success');
+      history.push('/trainee');
+    } catch (err) {
+      if (err.response) {
+        const { data } = err.response;
+        this.setState({ data, buttonDisabled: false, loginSuccess: false });
+        openSnackBar('Opps! email and password might be incorrect\n'
+          + 'please enter valid email and password', 'error');
+      }
+    }
   }
 
   validate = () => {
@@ -195,123 +238,132 @@ class Login extends React.Component {
     const { password, showPassword, isError } = this.state;
     const loginOutput = [
       <>
-        <form>
-          <div className={classes.paper}>
-            <Paper className={classes.root}>
-              <Grid>
-                <Grid item>
-                  <Box>
-                    <Box m={4}>
-                      <Grid item>
-                        <Avatar className={classes.avatarColor}>
-                          <LockOutlined />
-                        </Avatar>
-                      </Grid>
-                      <Grid container justify="center" item className={classes.header}>
-                        <Typography variant="h5">
-                          Login
-                        </Typography>
-                      </Grid>
-                    </Box>
-                  </Box>
-                </Grid>
-                <Grid item sm container>
-                  <Grid item xs className={classes.input}>
-                    <Grid item className={classes.inputMargin}>
-                      <FormControl fullWidth>
-                        <TextField
-                          name="email"
-                          id="outlined-name"
-                          label="Email Address"
-                          // className={classes.textField}
-                          variant="outlined"
-                          onChange={this.getTextField}
-                          onBlur={this.onBlurHandler}
-                          onFocus={() => this.onFocusHandler('email')}
-                          error={isError.email}
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <Mail />
-                              </InputAdornment>
-                            ),
-                          }}
-                        />
-                        {isError.email ? (
-                          <FormHelperText
-                            id="email-helper-text"
-                            className={classes.errorStyle}
-                          >
-                            {this.getError('email')}
-                          </FormHelperText>
-                        ) : ''}
-                      </FormControl>
-                    </Grid>
-                    <Grid item className={classes.inputMargin}>
-                      <FormControl fullWidth>
-                        <TextField
-                          name="password"
-                          id="outlined-password"
-                          label="Password"
-                          // className={classes.textField}
-                          variant="outlined"
-                          type={showPassword ? 'text' : 'password'}
-                          values={password}
-                          onChange={this.getTextField}
-                          onBlur={this.onBlurHandler}
-                          onFocus={() => this.onFocusHandler('password')}
-                          error={isError.password}
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <IconButton
-                                  className={classes.iconSize}
-                                  aria-label="Toggle password visibility"
-                                  onClick={this.handleClickShowPassword}
-                                >
-                                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                                </IconButton>
-                              </InputAdornment>
-                            ),
-                          }}
-                        />
-                        {isError.password ? (
-                          <FormHelperText
-                            id="password-helper-text"
-                            className={classes.errorStyle}
-                          >
-                            {this.getError('password')}
-                          </FormHelperText>
-                        ) : ''}
-                      </FormControl>
-                    </Grid>
+        <div className={classes.paper}>
+          <Paper className={classes.root}>
+            <Grid>
+              <Grid item>
+                <Box>
+                  <Box m={4}>
                     <Grid item>
-                      <Button
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.bigButton}
-                        disabled={this.buttonDisabled()}
-                        type="reset"
-                      >
-                        Sign in
-                      </Button>
+                      <Avatar className={classes.avatarColor}>
+                        <LockOutlined />
+                      </Avatar>
                     </Grid>
+                    <Grid container justify="center" item className={classes.header}>
+                      <Typography variant="h5">
+                        Login
+                        </Typography>
+                    </Grid>
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid item sm container>
+                <Grid item xs className={classes.input}>
+                  <Grid item className={classes.inputMargin}>
+                    <FormControl fullWidth>
+                      <TextField
+                        name="email"
+                        id="outlined-name"
+                        label="Email Address"
+                        // className={classes.textField}
+                        variant="outlined"
+                        onChange={this.getTextField}
+                        onBlur={this.onBlurHandler}
+                        onFocus={() => this.onFocusHandler('email')}
+                        error={isError.email}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Mail />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                      {isError.email ? (
+                        <FormHelperText
+                          id="email-helper-text"
+                          className={classes.errorStyle}
+                        >
+                          {this.getError('email')}
+                        </FormHelperText>
+                      ) : ''}
+                    </FormControl>
                   </Grid>
-
+                  <Grid item className={classes.inputMargin}>
+                    <FormControl fullWidth>
+                      <TextField
+                        name="password"
+                        id="outlined-password"
+                        label="Password"
+                        // className={classes.textField}
+                        variant="outlined"
+                        type={showPassword ? 'text' : 'password'}
+                        values={password}
+                        onChange={this.getTextField}
+                        onBlur={this.onBlurHandler}
+                        onFocus={() => this.onFocusHandler('password')}
+                        error={isError.password}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <IconButton
+                                className={classes.iconSize}
+                                aria-label="Toggle password visibility"
+                                onClick={this.handleClickShowPassword}
+                              >
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                      {isError.password ? (
+                        <FormHelperText
+                          id="password-helper-text"
+                          className={classes.errorStyle}
+                        >
+                          {this.getError('password')}
+                        </FormHelperText>
+                      ) : ''}
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      fullWidth
+                      className={classes.bigButton}
+                      disabled={this.buttonDisabled() || this.state.buttonDisabled}
+                      onClick={this.handleSubmit}
+                      type="submit"
+                    >
+                      {
+                        this.state.buttonDisabled
+                          ? (
+                            <>
+                              <CircularProgress
+                                variant="indeterminate"
+                                disableShrink
+                                size={24}
+                                thickness={4}
+                              />
+                              <span style={{ marginLeft: 5 }}>Loading...</span>
+                            </>
+                          ) : <span>Submit</span>
+                      }
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Paper>
-          </div>
-        </form>
+            </Grid>
+          </Paper>
+        </div>
       </>,
     ];
     return loginOutput;
   }
 }
 
-Login.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Login);
+Login.contextType = SnackBarConsumer;
+const WrappedComponent = withStorage(Login);
+export default withStyles(styles)(WrappedComponent);

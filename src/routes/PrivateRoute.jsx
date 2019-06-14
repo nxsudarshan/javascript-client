@@ -2,17 +2,28 @@
 import React from 'react';
 import {
   Route,
+  Redirect,
 } from 'react-router-dom';
 
 import { PrivateLayout } from '../layouts';
+import { withStorage } from '../HOC';
 
 export const PrivateRoute = (props) => {
-  const { component: Component, ...rest } = props;
+  const {
+    load,
+    component: Component,
+    ...rest
+  } = props;
+
+  if (!load('user')) {
+    return (<Redirect to="/login" />);
+  }
+
   return (
     <Route
       {...rest}
       render={matchedProps => (
-        <PrivateLayout>
+        <PrivateLayout {...rest}>
           <Component {...matchedProps} />
         </PrivateLayout>
       )
@@ -20,3 +31,6 @@ export const PrivateRoute = (props) => {
     />
   );
 };
+
+const WrappedComponent = withStorage(PrivateRoute);
+export default WrappedComponent;

@@ -3,7 +3,6 @@
 import React from 'react';
 import {
   BrowserRouter,
-  Route,
   Switch,
   Redirect,
 } from 'react-router-dom';
@@ -14,6 +13,7 @@ import {
   TextFieldDemo,
   InputDemo,
   NoMatch,
+  Login,
   NotFound,
 } from './pages';
 import { AuthRoute, PrivateRoute } from './routes';
@@ -26,13 +26,13 @@ export default function App() {
       <BrowserRouter>
         <SnackBarProvider>
           <Switch>
-            <Route path="/login" component={AuthRoute} />
-            <PrivateRoute exact path="/trainee" component={Trainee} />
-            <PrivateRoute path="/children-demo" component={ChildrenDemo} />
-            <PrivateRoute path="/textField-demo" component={TextFieldDemo} />
-            <PrivateRoute path="/input-demo" component={InputDemo} />
-            <PrivateRoute path="/trainee/:id" component={TraineeDetail} />
-            <PrivateRoute path="/notFound" component={NotFound} />
+            <AuthRoute path="/login" component={Login} />
+            <PrivateRoute key="1" exact path="/trainee" component={Trainee} />
+            <PrivateRoute key="2" path="/children-demo" component={ChildrenDemo} />
+            <PrivateRoute key="3" path="/textField-demo" component={TextFieldDemo} />
+            <PrivateRoute key="4" path="/input-demo" component={InputDemo} />
+            <PrivateRoute key="5" path="/trainee/:id" component={TraineeDetail} />
+            <PrivateRoute key="6" path="/notFound" component={NotFound} />
             <Redirect to="/trainee" />
             <PrivateRoute component={NoMatch} />
           </Switch>

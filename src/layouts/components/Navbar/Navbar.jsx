@@ -1,3 +1,5 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/no-unused-state */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/prop-types */
@@ -8,7 +10,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { withStorage } from '../../../HOC';
 
 const useStyles = ({
   root: {
@@ -29,12 +32,26 @@ const useStyles = ({
     marginLeft: 20,
   },
   main: {
-    marginTop: 80,
+    marginBottom: 80,
   },
 });
 class Navbar extends React.Component {
+  state = {
+    logoutSuccess: false,
+  };
+
+  handleLogout = () => {
+    const { remove } = this.props;
+    remove('user');
+    this.setState({ logoutSuccess: true });
+    // eslint-disable-next-line no-unused-expressions
+  }
+
   render() {
     const { classes } = this.props;
+    if (this.state.logoutSuccess) {
+      return (<Redirect to="/login" />);
+    }
     const navbarOutput = [
       <div className={classes.main}>
         <AppBar position="fixed">
@@ -62,7 +79,7 @@ class Navbar extends React.Component {
                 children demo
               </Button>
             </Link>
-            <Button color="inherit" className={classes.logout}>
+            <Button color="inherit" className={classes.logout} onClick={() => this.handleLogout()}>
               Logout
             </Button>
           </Toolbar>
@@ -72,5 +89,5 @@ class Navbar extends React.Component {
     return navbarOutput;
   }
 }
-
-export default withStyles(useStyles)(Navbar);
+const WrappedComponent = withStorage(Navbar);
+export default withStyles(useStyles)(WrappedComponent);

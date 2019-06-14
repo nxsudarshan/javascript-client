@@ -21,6 +21,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import Fab from '@material-ui/core/Fab';
 import TablePagination from '@material-ui/core/TablePagination';
 import {
@@ -146,14 +148,15 @@ class TableComponent extends React.Component {
                           scope="row"
                           align={item.align}
                         >
-                          <Fab
-                            size="small"
+                          <IconButton
+                            variant="contained"
+                            color="default"
                             aria-label={item.name}
                             title={item.name}
                             onClick={() => item.handler(row)}
                           >
                             {item.icon}
-                          </Fab>
+                          </IconButton>
                         </TableCell>
                       ))
                     }

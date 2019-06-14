@@ -164,6 +164,8 @@ class Login extends React.Component {
   }
 
   render() {
+    console.log(configenv.REACT_APP_URL
+      + configenv.REACT_APP_LOGIN);
     const { classes } = this.props;
     const { password, showPassword, loginSuccess } = this.state;
     const loginOutput = [

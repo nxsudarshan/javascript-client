@@ -5,6 +5,10 @@
 import axios from 'axios';
 import { configenv } from '../../configs/environment';
 
-const callApi = async userDetails => await axios.post(configenv.REACT_APP_URL, userDetails);
+const callApi = async userDetails => await axios.post(
+  configenv.REACT_APP_URL
+  + configenv.REACT_APP_LOGIN,
+  userDetails,
+);
 
 export default callApi;

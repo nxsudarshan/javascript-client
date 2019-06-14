@@ -7,7 +7,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/styles';
-
 import { AddDialog } from './component';
 import { TableDemo } from '../index';
 
@@ -42,6 +41,7 @@ class Trainee extends React.Component {
     const { classes } = this.props;
     const result = [
       <>
+
         <div className={classes.button}>
           <Button
             variant="outlined"

@@ -10,12 +10,13 @@ import Delete from '@material-ui/icons/Delete';
 
 import { TableComponent } from '../../components';
 import { EditDialog, RemoveDialog } from '../Trainee/component';
-import { traineeData } from '../Trainee';
+// import { traineeData } from '../Trainee';
 import { dateFormat } from '../../configs/constants';
 import { SnackBarConsumer } from '../../contexts/SnackBarProvider/SnackBarProvider';
+import { withLoaderAndMessage } from '../../HOC';
 
 const requiredDate = '2019-02-14';
-
+const EnhancedTable = withLoaderAndMessage(TableComponent);
 export class TableDemo extends React.Component {
   page = 0;
 
@@ -88,9 +89,11 @@ export class TableDemo extends React.Component {
       editDialog,
       row,
     } = this.state;
+    const { data, count, ...rest } = this.props;
     return (
       <>
-        <TableComponent
+        <EnhancedTable
+          {...rest}
           id="id"
           columns={[
             {
@@ -110,7 +113,7 @@ export class TableDemo extends React.Component {
               align: 'right',
             },
           ]}
-          data={traineeData}
+          data={data}
           order={order}
           orderBy={orderBy}
           onSort={this.handleChange}
@@ -127,7 +130,7 @@ export class TableDemo extends React.Component {
               handler: this.handlerDeleteDialogOpen,
             },
           ]}
-          count={this.count}
+          count={count}
           page={this.page}
           onChangePage={this.handleChangePage}
         />

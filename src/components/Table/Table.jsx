@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable no-nested-ternary */
@@ -79,6 +80,7 @@ class TableComponent extends React.Component {
       actions,
       count,
       page,
+      match,
     } = this.props;
     return (
       <div className={classes.root}>
@@ -122,11 +124,11 @@ class TableComponent extends React.Component {
                       columns.map(items => (
                         <TableCell
                           className={classes.rowHover}
-                          key={row[items.field]}
+                          key={row._id[items.field]}
                           scope="row"
                           align={items.align}
                         >
-                          <Link to={`/trainee/${row.id}`} className={classes.link}>
+                          <Link to={`${match.url}/${row._id}`} className={classes.link}>
                             {(items.format
                               ? items.format(row[items.field])
                               : row[items.field])

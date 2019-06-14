@@ -11,6 +11,9 @@ import { withStyles } from '@material-ui/styles';
 
 import { AddDialog } from './component';
 import { TableDemo } from '../index';
+import { getApi } from '../../lib/utils/api';
+import { withStorage } from '../../HOC';
+import { configenv } from '../../configs/environment';
 
 const style = {
   button: {
@@ -23,13 +26,25 @@ const style = {
   },
 };
 
+
 class Trainee extends React.Component {
   state = {
     open: false,
+    isLoading: false,
+    data: [],
+    limit: 20,
   }
 
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    this.setState({
+      token: this.props.load('user'),
+      isLoading: true,
+    });
+    this.getDataApi();
   }
 
   handleClickOpen = () => {
@@ -46,8 +61,29 @@ class Trainee extends React.Component {
     this.handleClickClose();
   }
 
+  getDataApi = async () => {
+    const token = this.props.load('user');
+    const { limit } = this.state;
+    try {
+      const response = await getApi(
+        {
+          method: 'get',
+          token,
+          skip: 0,
+          limit,
+        },
+      );
+      const { data } = response.data;
+      this.setState({ count: data.count, data: data.records });
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response);
+      }
+    }
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes, ...rest } = this.props;
     const result = [
       <>
         <div className={classes.button}>
@@ -60,7 +96,7 @@ class Trainee extends React.Component {
           </Button>
         </div>
         <br />
-        <TableDemo />
+        <TableDemo {...rest} data={this.state.data} count={this.state.count} />
         <AddDialog
           open={this.state.open}
           onClose={this.handleClickClose}
@@ -72,4 +108,5 @@ class Trainee extends React.Component {
   }
 }
 
-export default withStyles(style)(Trainee);
+const WrappedComponent = withStorage(Trainee);
+export default withStyles(style)(WrappedComponent);

@@ -22,6 +22,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import Fab from '@material-ui/core/Fab';
 import TablePagination from '@material-ui/core/TablePagination';
 import {
@@ -61,7 +63,6 @@ class TableComponent extends React.Component {
   handleChangePage = (event) => {
     const { onChangePage } = this.props;
     console.log(event.target.value);
-    // onChangePage(value);
   }
 
   handleNoHandler = () => {
@@ -80,6 +81,7 @@ class TableComponent extends React.Component {
       actions,
       count,
       page,
+      id,
       match,
     } = this.props;
     return (
@@ -101,7 +103,7 @@ class TableComponent extends React.Component {
                         <TableSortLabel
                           active={orderBy === item.field}
                           direction={order}
-                          onChange={() => this.createSortHandler(item.field)}
+                          onClick={this.createSortHandler(item.field)}
                         >
                           {item.label}
                         </TableSortLabel>
@@ -119,14 +121,19 @@ class TableComponent extends React.Component {
             <TableBody>
               {
                 data.map(row => (
-                  <TableRow className={classes.alternateRow} hover>
+                  <TableRow
+                    key={row._id}
+                    className={classes.alternateRow}
+                    hover
+                  >
                     {
                       columns.map(items => (
                         <TableCell
                           className={classes.rowHover}
-                          key={row._id[items.field]}
+                          key={row[items.field]}
                           scope="row"
                           align={items.align}
+                          onClick={() => onSelect(row._id)}
                         >
                           <Link to={`${match.url}/${row._id}`} className={classes.link}>
                             {(items.format
@@ -139,20 +146,15 @@ class TableComponent extends React.Component {
                     }
                     {
                       actions.map(item => (
-                        <TableCell
-                          key={item.handler}
-                          scope="row"
-                          align={item.align}
+                        <IconButton
+                          variant="contained"
+                          color="default"
+                          aria-label={item.name}
+                          title={item.name}
+                          onClick={() => item.handler(row)}
                         >
-                          <Fab
-                            size="small"
-                            aria-label={item.name}
-                            title={item.name}
-                            onClick={() => item.handler(row)}
-                          >
-                            {item.icon}
-                          </Fab>
-                        </TableCell>
+                          {item.icon}
+                        </IconButton>
                       ))
                     }
                   </TableRow>
@@ -181,7 +183,6 @@ class TableComponent extends React.Component {
   }
 
   handleChangePage = (event, page) => {
-    // const { page, count } = this.state;
     this.setState({
       page,
     });
@@ -193,5 +194,4 @@ class TableComponent extends React.Component {
     });
   }
 }
-
 export default withStyles(style)(TableComponent);

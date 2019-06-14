@@ -11,9 +11,6 @@ const withLoaderAndMessage = (WrappedComponent) => {
           <CircularProgress />
         );
       }
-      if (!data) {
-
-      }
       return (
         <WrappedComponent {...this.props} />
       );

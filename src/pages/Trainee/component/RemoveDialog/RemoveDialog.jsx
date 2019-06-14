@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Button from '@material-ui/core/Button';

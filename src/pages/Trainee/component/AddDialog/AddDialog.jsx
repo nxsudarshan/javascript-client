@@ -34,6 +34,8 @@ import FormControl from '@material-ui/core/FormControl';
 
 import { SnackBarConsumer } from '../../../../contexts/SnackBarProvider/SnackBarProvider';
 import { traineeSchema } from '../../Schema/traineeSchema';
+import { postApi } from '../../../../lib/utils/api';
+import { withStorage } from '../../../../HOC';
 
 export class AddDialog extends React.Component {
   errorStyle = {
@@ -167,12 +169,21 @@ export class AddDialog extends React.Component {
     return errors.length !== 0;
   }
 
-  onSubmitHandle = () => {
-    const { openSnackBar } = this.context;
-    openSnackBar('Trainee Successfully Added', 'success');
-    const { onSubmit } = this.props;
+  onSubmitHandle = async () => {
     const { name, email, password } = this.state;
-    onSubmit({ name, email, password });
+    const { openSnackBar } = this.context;
+    const { onSubmit, load } = this.props;
+    try {
+      const token = load('user');
+      const res = await postApi(token, { name, email, password });
+      const { data } = res;
+      openSnackBar(data.message, 'success');
+      onSubmit({ name, email, password });
+    } catch (err) {
+      if (err.response) {
+        openSnackBar(err.response, 'error');
+      }
+    }
   }
 
   handleGrid = () => {
@@ -325,3 +336,6 @@ export class AddDialog extends React.Component {
   }
 }
 AddDialog.contextType = SnackBarConsumer;
+
+const WrappedComponent = withStorage(AddDialog);
+export default WrappedComponent;

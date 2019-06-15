@@ -21,7 +21,7 @@ const EnhancedTable = withLoaderAndMessage(TableComponent);
 export class TableDemo extends React.Component {
   page = 0;
 
-  count = 10;
+  count = 20;
 
   state = {
     order: '',
@@ -96,7 +96,8 @@ export class TableDemo extends React.Component {
       editDialog,
       row,
     } = this.state;
-    const { data, count, ...rest } = this.props;
+    const { data, ...rest } = this.props;
+    const count = data.length;
     return (
       <>
         <EnhancedTable

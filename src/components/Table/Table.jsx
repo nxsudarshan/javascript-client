@@ -40,6 +40,7 @@ class TableComponent extends React.Component {
   state = {
     page: '',
     count: '',
+    rowsPerPage: '',
   };
 
   constructor(props) {
@@ -50,6 +51,8 @@ class TableComponent extends React.Component {
       count,
     });
   }
+
+  generateUniqueKey = () => { Math.random(); }
 
   createSortHandler = field => (event) => {
     const { onSort, order } = this.props;
@@ -122,7 +125,7 @@ class TableComponent extends React.Component {
               {
                 data.map(row => (
                   <TableRow
-                    key={row._id}
+                    key={this.generateUniqueKey()}
                     className={classes.alternateRow}
                     hover
                   >
@@ -130,7 +133,6 @@ class TableComponent extends React.Component {
                       columns.map(items => (
                         <TableCell
                           className={classes.rowHover}
-                          key={row[items.field]}
                           scope="row"
                           align={items.align}
                           onClick={() => onSelect(row._id)}
@@ -165,9 +167,10 @@ class TableComponent extends React.Component {
           </Table>
           <TablePagination
             component="div"
-            count={50}
-            rowsPerPage={this.state.count}
+            count={count}
+            rowsPerPage={20}
             page={this.state.page}
+            rowsPerPageOptions={[10, 20, 30]}
             backIconButtonProps={{
               'aria-label': 'Previous Page',
             }}
@@ -183,9 +186,10 @@ class TableComponent extends React.Component {
   }
 
   handleChangePage = (event, page) => {
+    const { setSkipLimit } = this.props;
     this.setState({
       page,
-    });
+    }, () => setSkipLimit());
   }
 
   handleChangeRowsPerPage = (event) => {

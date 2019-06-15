@@ -33,7 +33,8 @@ class Trainee extends React.Component {
     open: false,
     isLoading: false,
     data: [],
-    limit: 20,
+    limit: '',
+    skip: '',
   }
 
   constructor(props) {
@@ -44,8 +45,9 @@ class Trainee extends React.Component {
     this.setState({
       token: this.props.load('user'),
       isLoading: true,
-    });
-    this.getDataApi();
+      skip: 0,
+      limit: 20,
+    }, () => this.getDataApi());
   }
 
   handleClickOpen = () => {
@@ -64,23 +66,39 @@ class Trainee extends React.Component {
 
   getDataApi = async () => {
     const token = this.props.load('user');
-    const { limit } = this.state;
+    const { skip, limit } = this.state;
     try {
       const response = await getApi(
         {
           method: 'get',
           token,
-          skip: 0,
+          skip,
           limit,
         },
       );
       const { data } = response.data;
-      this.setState({ count: data.count, data: data.records });
+      this.setState(
+        {
+          skip: response.config.params.skip,
+          limit: response.config.params.limit,
+          count: data.count,
+          data: data.records,
+          isLoading: !(data.count > 0),
+        },
+      );
     } catch (err) {
       if (err.response) {
         console.log(err.response);
       }
     }
+  }
+
+  handleSkipLimit = () => {
+    const { skip, limit } = this.state;
+    this.setState({
+      skip: skip + limit,
+      limit,
+    }, () => this.getDataApi());
   }
 
   render() {
@@ -97,7 +115,13 @@ class Trainee extends React.Component {
           </Button>
         </div>
         <br />
-        <TableDemo {...rest} data={this.state.data} count={this.state.count} />
+        <TableDemo
+          {...rest}
+          data={this.state.data}
+          count={this.state.count}
+          setSkipLimit={this.handleSkipLimit}
+          isLoading={this.state.isLoading}
+        />
         <AddDialog
           open={this.state.open}
           onClose={this.handleClickClose}

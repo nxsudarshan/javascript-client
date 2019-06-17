@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable no-nested-ternary */
@@ -39,6 +40,7 @@ class TableComponent extends React.Component {
   state = {
     page: '',
     count: '',
+    rowsPerPage: '',
   };
 
   constructor(props) {
@@ -49,6 +51,8 @@ class TableComponent extends React.Component {
       count,
     });
   }
+
+  generateUniqueKey = () => { Math.random(); }
 
   createSortHandler = field => (event) => {
     const { onSort, order } = this.props;
@@ -121,24 +125,26 @@ class TableComponent extends React.Component {
               {
                 data.map(row => (
                   <TableRow
-                    key={row.id}
+                    key={this.generateUniqueKey()}
                     className={classes.alternateRow}
-
+                    hover
                   >
-                    {columns.map(items => (
-                      <TableCell
-                        align={items.align}
-                        scope="row"
-                        onClick={() => onSelect(row.id)}
-                      >
-                        <Link to={`/trainee/${row.id}`} className={classes.link}>
-                          {(items.format
-                            ? items.format(row[items.field])
-                            : row[items.field])
-                          }
-                        </Link>
-                      </TableCell>
-                    ))
+                    {
+                      columns.map(items => (
+                        <TableCell
+                          className={classes.rowHover}
+                          scope="row"
+                          align={items.align}
+                          onClick={() => onSelect(row._id)}
+                        >
+                          <Link to={`${match.url}/${row._id}`} className={classes.link}>
+                            {(items.format
+                              ? items.format(row[items.field])
+                              : row[items.field])
+                            }
+                          </Link>
+                        </TableCell>
+                      ))
                     }
                     {
                       actions.map(item => (
@@ -161,9 +167,10 @@ class TableComponent extends React.Component {
           </Table>
           <TablePagination
             component="div"
-            count={50}
-            rowsPerPage={this.state.count}
+            count={count}
+            rowsPerPage={20}
             page={this.state.page}
+            rowsPerPageOptions={[10, 20, 30]}
             backIconButtonProps={{
               'aria-label': 'Previous Page',
             }}
@@ -179,9 +186,10 @@ class TableComponent extends React.Component {
   }
 
   handleChangePage = (event, page) => {
+    const { setSkipLimit } = this.props;
     this.setState({
       page,
-    });
+    }, () => setSkipLimit());
   }
 
   handleChangeRowsPerPage = (event) => {

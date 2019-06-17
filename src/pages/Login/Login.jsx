@@ -252,7 +252,7 @@ class Login extends React.Component {
                     <Grid container justify="center" item className={classes.header}>
                       <Typography variant="h5">
                         Login
-                        </Typography>
+                      </Typography>
                     </Grid>
                   </Box>
                 </Box>
